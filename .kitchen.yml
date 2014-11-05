@@ -12,10 +12,18 @@ platforms:
     driver:
       network:
       - ["private_network", {ip: "33.33.33.20"}]
-  - name: centos-6.5
+  - name: ubuntu-14.04
+    driver:
+      network:
+      - ["private_network", {ip: "33.33.33.21"}]
+  - name: centos-6.6
     driver:
       network:
       - ["private_network", {ip: "33.33.33.25"}]
+  - name: centos-7
+    driver:
+      network:
+      - ["private_network", {ip: "33.33.33.26"}]
 
 suites:
   - name: default

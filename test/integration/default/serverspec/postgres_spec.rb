@@ -6,16 +6,16 @@ describe 'postgres' do
   end
 
   it 'listen tcp socket' do
-    expect(port 5432).to be_listening
+    expect(port 15432).to be_listening
   end
 
   it 'has supermarket user' do
-    cmd = command 'echo "\dg" | sudo -u postgres psql'
+    cmd = command 'echo "\dg" | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432'
     expect(cmd.stdout).to match 'supermarket'
   end
 
   it 'has supermarket db' do
-    cmd = command 'echo "\l" | sudo -u postgres psql'
-    expect(cmd.stdout).to match 'supermarket_production'
+    cmd = command 'echo "\l" | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432'
+    expect(cmd.stdout).to match 'supermarket'
   end
 end

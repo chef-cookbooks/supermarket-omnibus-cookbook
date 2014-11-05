@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+  customize:
+      memory: 512
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-12.04
+    driver:
+      network:
+      - ["private_network", {ip: "33.33.33.20"}]
+  - name: centos-6.5
+    driver:
+      network:
+      - ["private_network", {ip: "33.33.33.25"}]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[supermarket-omnibus-cookbook::default]
+    attributes:
+      supermarket_omnibus:
+        chef_server_url: https://foobar.baz
+        chef_oauth2_app_id: 2309r2093r029832
+        chef_oauth2_secret: 2309r2093r029832
+        chef_oauth2_verify_ssl: false

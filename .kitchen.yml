@@ -20,10 +20,6 @@ platforms:
     driver:
       network:
       - ["private_network", {ip: "33.33.33.25"}]
-  - name: centos-7
-    driver:
-      network:
-      - ["private_network", {ip: "33.33.33.26"}]
 
 suites:
   - name: default

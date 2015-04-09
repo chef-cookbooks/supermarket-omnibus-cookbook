@@ -1,4 +1,11 @@
 ---
+provisioner:
+  name: chef_zero
+  chef_omnibus_install_options: -d /tmp/vagrant-cache/vagrant_omnibus
+#  solo_rb:
+#    http_proxy: http://192.168.1.1
+#    https_proxy: http://192.168.2.2
+
 suites:
   - name: default
     run_list:

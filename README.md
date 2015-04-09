@@ -6,7 +6,7 @@ This cookbook installs the [Chef Supermarket](https://github.com/opscode/superma
 
 ## Attributes
 
-Set the following attributes in the [`.kitchen.local.yml`](https://github.com/irvingpop/supermarket-omnibus-cookbook/blob/master/.kitchen.local.yml.example) or via a wrapper cookbook.  The values will be obtained from your oc-id server.  For more information see: [Getting Started with oc-id and Supermarket](https://www.getchef.com/blog/2014/08/29/getting-started-with-oc-id-and-supermarket/)
+Set the following attributes in the [`.kitchen.local.yml`](https://github.com/irvingpop/supermarket-omnibus-cookbook/blob/master/.kitchen.local.yml.example) or via a wrapper cookbook.  The values will be obtained from your oc-id server.  For more information see: [Getting Started with oc-id and Supermarket](http://irvingpop.github.io/blog/2015/04/07/setting-up-your-private-supermarket-server/)
 
 ```ruby
 default['supermarket_omnibus']['chef_server_url'] = 'https://chefserver.mycompany.com'

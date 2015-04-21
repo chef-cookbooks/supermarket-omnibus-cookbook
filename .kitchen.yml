@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  chef_zero_port: 9010
 
 platforms:
   - name: ubuntu-12.04

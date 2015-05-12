@@ -15,6 +15,17 @@ default['supermarket_omnibus']['chef_oauth2_secret'] = 'a49402219627cfa6318d58b1
 default['supermarket_omnibus']['chef_oauth2_verify_ssl'] = false
 ```
 
+If you wish to consume nightly releases of specify a package source, you can do that now:
+```ruby
+default['supermarket_package']['packagecloud_repo'] = 'chef/stable'
+
+# use the following to consume nightly builds of packagecloud:
+default['supermarket_package']['packagecloud_repo'] = 'chef/current'
+
+# OR, specify a Supermarket package explicitly from a location of your choosing
+default['supermarket_package']['package_source'] = 'http://bit.ly/98K8eH'
+```
+
 # License and Authors
 
 - Author: Irving Popovetsky (<irving@getchef.com>)

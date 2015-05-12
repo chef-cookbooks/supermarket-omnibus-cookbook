@@ -17,5 +17,5 @@ suites:
         chef_oauth2_secret: my_example_secret_my_example_secret
         chef_oauth2_verify_ssl: false
 #      supermarket_package:
-#        repository: 'chef/current'
+#        packagecloud_repo: 'chef/current'
 #        package_source: http://bit.ly/98K8eH

@@ -16,6 +16,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'raises an error' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       expect { chef_run }.to raise_error(RuntimeError)
     end
 
@@ -32,6 +33,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'converges successfully' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       chef_run # This should not raise an error
     end
   end
@@ -48,15 +50,18 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'uses the specified chef_server_ingredient[supermarket] with a repository of "chef/current"' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       expect(chef_run).to install_chef_server_ingredient('supermarket')
         .with(repository: 'chef/current')
     end
 
     it 'creates a packagecloud_repository named "chef/current"' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       expect(chef_run).to create_packagecloud_repo('chef/current')
     end
 
     it 'converges successfully' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       chef_run # This should not raise an error
     end
   end
@@ -74,15 +79,18 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'uses the specified chef_server_ingredient[supermarket] with a package_source set' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       expect(chef_run).to install_chef_server_ingredient('supermarket')
         .with(package_source: 'http://bit.ly/98K8eH')
     end
 
     it 'does not create a packagecloud_repository named "chef/stable"' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       expect(chef_run).to_not create_packagecloud_repo('chef/stable')
     end
 
     it 'converges successfully' do
+      stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
       chef_run # This should not raise an error
     end
   end

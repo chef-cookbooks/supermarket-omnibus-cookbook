@@ -4,11 +4,11 @@
 #
 # Copyright (c) 2014 The Authors, All Rights Reserved.
 
-# # Configure Supermarket server hostname in /etc/hosts if it isn't there (AWS)
-# hostsfile_entry node['ipaddress'] do
-#   hostname node.hostname
-#   not_if "grep #{node.hostname} /etc/hosts"
-# end
+# Configure Supermarket server hostname in /etc/hosts if it isn't there (AWS)
+hostsfile_entry node['ipaddress'] do
+  hostname node.hostname
+  not_if "grep #{node.hostname} /etc/hosts"
+end
 
 directory '/etc/supermarket' do
   owner 'root'

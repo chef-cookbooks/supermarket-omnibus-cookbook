@@ -17,10 +17,18 @@ platforms:
     driver:
       network:
       - ["private_network", {ip: "33.33.33.21"}]
+  - name: centos-5.11
+    driver:
+      network:
+      - ["private_network", {ip: "33.33.33.24"}]
   - name: centos-6.6
     driver:
       network:
       - ["private_network", {ip: "33.33.33.25"}]
+  - name: centos-7.1
+    driver:
+      network:
+      - ["private_network", {ip: "33.33.33.28"}]
 
 suites:
   - name: default

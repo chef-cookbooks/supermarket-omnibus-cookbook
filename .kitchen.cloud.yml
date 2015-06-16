@@ -1,0 +1,157 @@
+#<% require 'kitchen-sync' %>
+---
+driver_config:
+  # digitalocean_access_token: <%= ENV['DIGITALOCEAN_API_TOKEN'] %>
+  # google_key_location: <%= ENV['GOOGLE_KEY_LOCATION'] %>
+  # google_project: <%= ENV['GOOGLE_PROJECT'] %>
+  # joyent_username: <%= ENV['SDC_CLI_ACCOUNT'] %>
+  # joyent_keyfile: <%= ENV['SDC_CLI_IDENTITY'] %>
+  # joyent_keyname: <%= ENV['SDC_CLI_KEY_ID'] %>
+  # joyent_url: <%= ENV['SDC_CLI_URL'] %>
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  instance_type: t2.medium
+  region: us-west-2
+  tags: { "X-Project": "Supermarket" }
+
+provisioner:
+  name: chef_zero
+  require_chef_omnibus: latest
+
+platforms:
+# - name: centos-5.8
+#   driver_plugin: digitalocean
+#   driver_config:
+#     size: 2gb
+#     image: centos-5-8-x64
+#     region: <%= ENV['DIGITALOCEAN_REGION'] %>
+#     ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEYS'] %>
+#     ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+
+# - name: centos-6.5
+#   driver_plugin: digitalocean
+#   driver_config:
+#     size: 2gb
+#     image: centos-6-5-x64
+#     region: <%= ENV['DIGITALOCEAN_REGION'] %>
+#     ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEYS'] %>
+#     ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+
+# - name: centos-7.0
+#   driver_plugin: digitalocean
+#   driver_config:
+#     size: 2gb
+#     image: centos-7-0-x64
+#     region: <%= ENV['DIGITALOCEAN_REGION'] %>
+#     ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEYS'] %>
+#     ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+
+- name: amazon-2014.09
+  driver_plugin: ec2
+  transport:
+    username: ec2-user
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+  driver_config:
+    image_id: ami-9a6ed3f2
+
+- name: redhat-6.6
+  driver_plugin: ec2
+  transport:
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+    username: ec2-user
+  driver_config:
+    image_id: ami-5fbcf36f
+
+- name: redhat-7.1
+  driver_plugin: ec2
+  transport:
+    username: ec2-user
+    ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+  driver_config:
+    image_id: ami-4dbf9e7d
+
+# - name: fedora-21
+#   driver_plugin: digitalocean
+#   driver_config:
+#     size: 2gb
+#     image: fedora-21-x64
+#     region: <%= ENV['DIGITALOCEAN_REGION'] %>
+#     ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEYS'] %>
+#     ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+
+# - name: suse-11.3
+#   driver_plugin: ec2
+#   driver_config:
+#     image_id: ami-e8084981
+#     username: root
+#     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+
+# - name: debian-7.0
+#   driver_plugin: digitalocean
+#   driver_config:
+#     size: 2gb
+#     image: debian-7-0-x64
+#     region: <%= ENV['DIGITALOCEAN_REGION'] %>
+#     ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEYS'] %>
+#     ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+#   run_list:
+#   - recipe[apt]
+
+# - name: ubuntu-12.04
+#   driver_plugin: digitalocean
+#   driver_config:
+#     size: 2gb
+#     image: ubuntu-12-04-x64
+#     region: <%= ENV['DIGITALOCEAN_REGION'] %>
+#     ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEYS'] %>
+#     ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+#   run_list:
+#   - recipe[apt]
+
+# - name: ubuntu-14.04
+#   driver_plugin: digitalocean
+#   driver_config:
+#     size: 2gb
+#     image: ubuntu-14-04-x64
+#     region: <%= ENV['DIGITALOCEAN_REGION'] %>
+#     ssh_key_ids: <%= ENV['DIGITALOCEAN_SSH_KEYS'] %>
+#     ssh_key: <%= ENV['DIGITALOCEAN_SSH_KEY_PATH'] %>
+#   run_list:
+#   - recipe[apt]
+
+# - name: omnios-151006
+#   driver_plugin: ec2
+#   driver_config:
+#     image_id: ami-35eb835c
+#     flavor_id: m3.large
+#     username: root
+#     ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+#   run_list:
+#   - recipe[ips-omniti]
+
+# - name: smartos-14.3.0
+#   driver_plugin: joyent
+#   driver_config:
+#     joyent_image_id: 62f148f8-6e84-11e4-82c5-efca60348b9f
+#     joyent_flavor_id: g3-standard-4-smartos
+#     username: root
+#     ssh_key: <%= ENV['SDC_CLI_IDENTITY'] %>
+#   busser:
+#     ruby_bindir: '/opt/local/bin/'
+#   provisioner:
+#     sudo: false
+#     chef_omnibus_url: https://raw.github.com/test-kitchen/kitchen-joyent/master/scripts/install-smartos.sh
+
+
+suites:
+  - name: default
+    run_list:
+      - recipe[supermarket-omnibus-cookbook::default]
+    attributes:
+      supermarket_omnibus:
+        chef_server_url: ~
+        chef_oauth2_app_id: ~
+        chef_oauth2_secret: ~
+        chef_oauth2_verify_ssl: ~
+

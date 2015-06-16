@@ -35,13 +35,24 @@ file '/etc/supermarket/supermarket.json' do
   notifies :reconfigure, 'chef_server_ingredient[supermarket]'
 end
 
+if node['supermarket_package']['package_source']
+  pkgname = ::File.basename(node['supermarket_package']['package_source'])
+  cache_path = ::File.join(Chef::Config[:file_cache_path], pkgname).gsub(/~/, '-')
+
+  # recipe
+  remote_file cache_path do
+    source node['supermarket_package']['package_source']
+    mode '0644'
+  end
+end
+
 chef_server_ingredient 'supermarket' do
   ctl_command '/opt/supermarket/bin/supermarket-ctl'
 
   # Prefer package_source if set over custom repository
   if node['supermarket_package']['package_source']
     Chef::Log.info "Using Supermarket package source: #{node['supermarket_package']['package_source']}"
-    package_source node['supermarket_package']['package_source']
+    package_source cache_path
   else
     Chef::Log.info "Using Supermarket packagecloud repo #{node['supermarket_package']['packagecloud_repo']}"
     repository node['supermarket_package']['packagecloud_repo']

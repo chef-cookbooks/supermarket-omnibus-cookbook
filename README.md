@@ -17,7 +17,7 @@ default['supermarket_omnibus']['chef_oauth2_verify_ssl'] = false
 
 If you wish to specify a package version or a source, you can do that now:
 ```ruby
-default['supermarket_omnibus']['package_version'] = 'chef/stable'
+default['supermarket_omnibus']['package_version'] = '1.2.3'
 
 # OR, specify a Supermarket package explicitly from a location of your choosing
 default['supermarket_omnibus']['package_url'] = 'http://bit.ly/98K8eH'

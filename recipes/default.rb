@@ -46,6 +46,13 @@ if node['supermarket_omnibus']['package_url']
   end
 end
 
+case node['platform_family']
+when 'debian'
+  node.default['apt-chef']['repo_name'] = node['supermarket_omnibus']['package_repo']
+when 'rhel'
+  node.default['yum-chef']['repositoryid'] = node['supermarket_omnibus']['package_repo']
+end
+
 chef_server_ingredient 'supermarket' do
   ctl_command '/opt/supermarket/bin/supermarket-ctl'
 
@@ -54,7 +61,7 @@ chef_server_ingredient 'supermarket' do
     Chef::Log.info "Using Supermarket package source: #{node['supermarket_omnibus']['package_url']}"
     package_source cache_path
   else
-    Chef::Log.info "Using Supermarket packagecloud repo #{node['supermarket_omnibus']['packagecloud_repo']}"
+    Chef::Log.info "Using CHEF's public repository #{node['supermarket_omnibus']['package_repo']}"
     version node['supermarket_omnibus']['package_version']
   end
 

@@ -35,13 +35,13 @@ file '/etc/supermarket/supermarket.json' do
   notifies :reconfigure, 'chef_server_ingredient[supermarket]'
 end
 
-if node['supermarket_package']['package_source']
-  pkgname = ::File.basename(node['supermarket_package']['package_source'])
+if node['supermarket_omnibus']['package_url']
+  pkgname = ::File.basename(node['supermarket_omnibus']['package_url'])
   cache_path = ::File.join(Chef::Config[:file_cache_path], pkgname).gsub(/~/, '-')
 
   # recipe
   remote_file cache_path do
-    source node['supermarket_package']['package_source']
+    source node['supermarket_omnibus']['package_url']
     mode '0644'
   end
 end
@@ -49,13 +49,13 @@ end
 chef_server_ingredient 'supermarket' do
   ctl_command '/opt/supermarket/bin/supermarket-ctl'
 
-  # Prefer package_source if set over custom repository
-  if node['supermarket_package']['package_source']
-    Chef::Log.info "Using Supermarket package source: #{node['supermarket_package']['package_source']}"
+  # Prefer package_url if set over custom repository
+  if node['supermarket_omnibus']['package_url']
+    Chef::Log.info "Using Supermarket package source: #{node['supermarket_omnibus']['package_url']}"
     package_source cache_path
   else
-    Chef::Log.info "Using Supermarket packagecloud repo #{node['supermarket_package']['packagecloud_repo']}"
-    repository node['supermarket_package']['packagecloud_repo']
+    Chef::Log.info "Using Supermarket packagecloud repo #{node['supermarket_omnibus']['packagecloud_repo']}"
+    version node['supermarket_omnibus']['package_version']
   end
 
   notifies :reconfigure, 'chef_server_ingredient[supermarket]'

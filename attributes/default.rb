@@ -1,7 +1,7 @@
 
-default['supermarket_omnibus']['chef_server_url'] = 'foo'
-default['supermarket_omnibus']['chef_oauth2_app_id'] = 'bar'
-default['supermarket_omnibus']['chef_oauth2_secret'] = 'secret'
+default['supermarket_omnibus']['chef_server_url'] = nil
+default['supermarket_omnibus']['chef_oauth2_app_id'] = nil
+default['supermarket_omnibus']['chef_oauth2_secret'] = nil
 default['supermarket_omnibus']['chef_oauth2_verify_ssl'] = false
 default['supermarket_omnibus']['package_url'] = nil
 default['supermarket_omnibus']['package_version'] = nil

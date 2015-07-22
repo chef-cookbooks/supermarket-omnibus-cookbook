@@ -44,10 +44,10 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
   end
 
-  context 'When a chef_server_ingredient repository chef/current is specified' do
+  context 'When a repository chef-current is specified' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(step_into: 'chef_server_ingredient') do |node|
-        node.set['supermarket_package']['packagecloud_repo']  = 'chef/current'
+        node.set['supermarket_omnibus']['package_repo']  = 'chef-current'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_loblaw'
@@ -59,13 +59,13 @@ describe 'supermarket-omnibus-cookbook::default' do
       stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
     end
 
-    it 'uses the specified chef_server_ingredient[supermarket] with a repository of "chef/current"' do
+    it 'uses the specified chef_server_ingredient[supermarket] with a repository of "chef-current"' do
       expect(chef_run).to install_chef_server_ingredient('supermarket')
-        .with(repository: 'chef/current')
+        .with(repository: 'chef-current')
     end
 
-    it 'creates a packagecloud_repository named "chef/current"' do
-      expect(chef_run).to create_packagecloud_repo('chef/current')
+    it 'creates a package_repository named "chef-current"' do
+      expect(chef_run).to create_repository('chef-current')
     end
 
     it 'converges successfully' do
@@ -74,10 +74,10 @@ describe 'supermarket-omnibus-cookbook::default' do
   end
 
 
-  context 'When a package_source is specified, packagecloud should not be used' do
+  context 'When a package_url is specified, packagecloud should not be used' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new do |node|
-        node.set['supermarket_package']['package_source']  = 'https://web-dl.packagecloud.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
+        node.set['supermarket_omnibus']['package_url']  = 'https://web-dl.packagecloud.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_loblaw'
@@ -89,13 +89,13 @@ describe 'supermarket-omnibus-cookbook::default' do
       stub_command("grep chefspec /etc/hosts").and_return('33.33.33.11 chefspec')
     end
 
-    it 'uses the specified chef_server_ingredient[supermarket] with a package_source set' do
+    it 'uses the specified chef_server_ingredient[supermarket] with a package_url set' do
       expect(chef_run).to install_chef_server_ingredient('supermarket')
         .with(package_source: ::File.join(Chef::Config[:file_cache_path], 'supermarket-1.10.1-alpha.0-1.el5.x86_64.rpm'))
     end
 
-    it 'does not create a packagecloud_repository named "chef/stable"' do
-      expect(chef_run).to_not create_packagecloud_repo('chef/stable')
+    it 'does not create a package_repository named "chef-stable"' do
+      expect(chef_run).to_not create_repository('chef-stable')
     end
 
     it 'converges successfully' do
@@ -103,10 +103,10 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
   end
 
-  context 'When a package_source is specified, the Rpm provider should be used on RHEL systems' do
+  context 'When a package_url is specified, the Rpm provider should be used on RHEL systems' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: 'chef_server_ingredient') do |node|
-        node.set['supermarket_package']['package_source']  = 'https://web-dl.packagecloud.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
+        node.set['supermarket_omnibus']['package_url']  = 'https://web-dl.packagecloud.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_loblaw'

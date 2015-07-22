@@ -8,5 +8,5 @@ issues_url       'https://github.com/irvingpop/supermarket-omnibus-cookbook/issu
 version          '0.4.0'
 
 
-depends 'chef-server-ingredient'
+depends 'chef-ingredient'
 depends 'hostsfile'

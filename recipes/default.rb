@@ -6,8 +6,8 @@
 
 # Configure Supermarket server hostname in /etc/hosts if it isn't there (AWS)
 hostsfile_entry node['ipaddress'] do
-  hostname node.hostname
-  not_if "grep #{node.hostname} /etc/hosts"
+  hostname node['hostname']
+  not_if "grep #{node['hostname']} /etc/hosts"
 end
 
 directory '/etc/supermarket' do
@@ -32,7 +32,7 @@ file '/etc/supermarket/supermarket.json' do
   group "root"
   mode "0644"
   content JSON.pretty_generate(node['supermarket_omnibus'])
-  notifies :reconfigure, 'chef_server_ingredient[supermarket]'
+  notifies :reconfigure, 'chef_ingredient[supermarket]'
 end
 
 if node['supermarket_omnibus']['package_url']
@@ -53,7 +53,7 @@ when 'rhel'
   node.default['yum-chef']['repositoryid'] = node['supermarket_omnibus']['package_repo']
 end
 
-chef_server_ingredient 'supermarket' do
+chef_ingredient 'supermarket' do
   ctl_command '/opt/supermarket/bin/supermarket-ctl'
 
   # Prefer package_url if set over custom repository
@@ -65,5 +65,5 @@ chef_server_ingredient 'supermarket' do
     version node['supermarket_omnibus']['package_version']
   end
 
-  notifies :reconfigure, 'chef_server_ingredient[supermarket]'
+  notifies :reconfigure, 'chef_ingredient[supermarket]'
 end

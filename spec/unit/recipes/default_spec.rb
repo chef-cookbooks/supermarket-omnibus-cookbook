@@ -5,7 +5,6 @@
 # Copyright (c) 2015 Irving Popovetsky, All Rights Reserved.
 
 require 'spec_helper'
-require 'mixlib/versioning' # new chef-ingredient makes heavy use of this library
 
 describe 'supermarket-omnibus-cookbook::default' do
 

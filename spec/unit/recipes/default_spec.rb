@@ -7,22 +7,19 @@
 require 'spec_helper'
 
 describe 'supermarket-omnibus-cookbook::default' do
-
   context 'When all attributes are default, it should fail because of nil checks' do
-
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5')
       runner.converge(described_recipe)
     end
 
     before do
-      stub_command("grep Fauxhai /etc/hosts").and_return('33.33.33.11 Fauxhai')
+      stub_command('grep Fauxhai /etc/hosts').and_return('33.33.33.11 Fauxhai')
     end
 
     it 'raises an error' do
       expect { chef_run }.to raise_error(RuntimeError)
     end
-
   end
 
   context 'When chef_server (oc-id) attributes are correctly specified' do
@@ -36,7 +33,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     before do
-      stub_command("grep Fauxhai /etc/hosts").and_return('33.33.33.11 Fauxhai')
+      stub_command('grep Fauxhai /etc/hosts').and_return('33.33.33.11 Fauxhai')
     end
 
     it 'converges successfully' do
@@ -56,7 +53,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     before do
-      stub_command("grep Fauxhai /etc/hosts").and_return('33.33.33.11 Fauxhai')
+      stub_command('grep Fauxhai /etc/hosts').and_return('33.33.33.11 Fauxhai')
     end
 
     it 'includes the yum-chef::default recipe with the chef-current repositoryid' do
@@ -73,7 +70,6 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
   end
 
-
   context 'When a package_url is specified, packagecloud should not be used' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5') do |node|
@@ -86,7 +82,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     before do
-      stub_command("grep Fauxhai /etc/hosts").and_return('33.33.33.11 Fauxhai')
+      stub_command('grep Fauxhai /etc/hosts').and_return('33.33.33.11 Fauxhai')
     end
 
     it 'fetches the supermarket package and places it on the filesystem' do
@@ -119,7 +115,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     before do
-      stub_command("grep Fauxhai /etc/hosts").and_return('33.33.33.11 Fauxhai')
+      stub_command('grep Fauxhai /etc/hosts').and_return('33.33.33.11 Fauxhai')
     end
 
     it 'fetches the supermarket package and places it on the filesystem' do

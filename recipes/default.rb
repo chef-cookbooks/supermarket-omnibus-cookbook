@@ -22,15 +22,15 @@ end
   unless node['supermarket_omnibus'][attr].is_a?(String)
     Chef::Log.fatal("You did not set the node['supermarket_omnibus']['#{attr}'] value!")
     Chef::Log.fatal('Please set this attribute before continuing')
-    raise
+    fail
   end
 end
 
 file '/etc/supermarket/supermarket.json' do
   action :create
-  owner "root"
-  group "root"
-  mode "0644"
+  owner 'root'
+  group 'root'
+  mode '0644'
   content JSON.pretty_generate(node['supermarket_omnibus'])
   notifies :reconfigure, 'chef_ingredient[supermarket]'
 end

@@ -38,7 +38,7 @@ describe 'supermarket' do
     it { should contain 'LOG_DIRECTORY="/var/log/supermarket"' }
     it { should contain 'VAR_DIRECTORY="/var/opt/supermarket"' }
     it { should contain 'USER="supermarket"' }
-    it { should contain 'FEATURES="tools"' }
+    it { should contain 'FEATURES="tools, gravatar"' }
   end
 
   describe file('/var/opt/supermarket/etc/unicorn.rb') do

@@ -22,6 +22,7 @@ before_script:
   # We have to install mixlib-versioning for ChefSpec
   - /opt/chefdk/embedded/bin/chef gem install mixlib-versioning
   # enable docker, see: https://github.com/zuazo/kitchen-in-travis
+  - /opt/chefdk/embedded/bin/chef gem install kitchen-docker
   - source <(curl -sL https://raw.githubusercontent.com/zuazo/kitchen-in-travis/0.3.0/scripts/start_docker.sh)
 script:
   - /opt/chefdk/embedded/bin/chef --version

@@ -6,7 +6,7 @@ describe 'postgres' do
   end
 
   it 'listen tcp socket' do
-    expect(port 15432).to be_listening
+    expect(port 15_432).to be_listening
   end
 
   it 'has supermarket user' do

@@ -2,7 +2,7 @@ require_relative 'spec_helper'
 
 describe 'supermarket' do
   it 'create a unicorn socket' do
-    expect(port 13000).to be_listening
+    expect(port 13_000).to be_listening
   end
 
   it 'serve Chef Supermarket index web page' do
@@ -17,14 +17,14 @@ describe 'supermarket' do
   end
 
   it 'has > 0 ICLAs' do
-    cmd = command %Q{echo 'SELECT count("iclas".*) FROM "iclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
+    cmd = command %{echo 'SELECT count("iclas".*) FROM "iclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
     cmd.stdout.match(/\((\d).*/)
     res = $1.to_i
     expect(res).to be > 0
   end
 
   it 'has > 0 CCLAs' do
-    cmd = command %Q{echo 'SELECT count("cclas".*) FROM "cclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
+    cmd = command %{echo 'SELECT count("cclas".*) FROM "cclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
     cmd.stdout.match(/\((\d).*/)
     res = $1.to_i
     expect(res).to be > 0
@@ -38,7 +38,7 @@ describe 'supermarket' do
     it { should contain 'LOG_DIRECTORY="/var/log/supermarket"' }
     it { should contain 'VAR_DIRECTORY="/var/opt/supermarket"' }
     it { should contain 'USER="supermarket"' }
-    it { should contain 'FEATURES="tools"' }
+    it { should contain 'FEATURES="tools, gravatar"' }
   end
 
   describe file('/var/opt/supermarket/etc/unicorn.rb') do

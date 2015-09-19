@@ -1,7 +1,6 @@
 require_relative 'spec_helper'
 
 describe 'supermarket' do
-
   it 'redirect to https' do
     cmd = command 'curl http://localhost 2> /dev/null'
     expect(cmd.stdout).to match '301 Moved Permanently'
@@ -16,5 +15,4 @@ describe 'supermarket' do
     cmd = command 'curl --header "Host: http-only.example.com" http://localhost 2> /dev/null'
     expect(cmd.stdout).to match '<!DOCTYPE html>'
   end
-
 end

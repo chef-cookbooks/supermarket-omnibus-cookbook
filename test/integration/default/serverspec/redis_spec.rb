@@ -6,6 +6,6 @@ describe 'redis' do
   end
 
   it 'listen tcp socket' do
-    expect(port 16379).to be_listening
+    expect(port 16_379).to be_listening
   end
 end

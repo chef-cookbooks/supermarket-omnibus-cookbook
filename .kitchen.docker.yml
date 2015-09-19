@@ -1,0 +1,26 @@
+---
+driver:
+  name: docker
+  privileged: true
+
+platforms:
+- name: centos-6.6
+- name: ubuntu-12.04
+  run_list:
+    - recipe[ubuntu]
+  driver:
+    image: ubuntu-upstart:12.04
+    platform: ubuntu
+    disable_upstart: false
+    run_command: /sbin/init
+
+suites:
+  - name: default
+    run_list:
+      - recipe[supermarket-omnibus-cookbook::default]
+    attributes:
+      supermarket_omnibus:
+        chef_server_url: https://notarealserver.chef.io
+        chef_oauth2_app_id: randomstring
+        chef_oauth2_secret: randomstring
+        chef_oauth2_verify_ssl: false

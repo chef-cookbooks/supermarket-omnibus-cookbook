@@ -33,11 +33,10 @@ script:
   - /opt/chefdk/embedded/bin/rspec spec
   - echo "Testing $KITCHEN_INSTANCE"
   - /opt/chefdk/embedded/bin/kitchen test $KITCHEN_INSTANCE
-after_script:
-  - echo /opt/chefdk/embedded/bin/kitchen destroy $KITCHEN_INSTANCE
 
 after_failure: cat docker_daemon.log
 
 matrix:
-  - KITCHEN_INSTANCE='centos-6.6'
-  - KITCHEN_INSTANCE='ubunt-12.04'
+  - KITCHEN_INSTANCE='centos-71'
+  - KITCHEN_INSTANCE='ubuntu-1204'
+  - KITCHEN_INSTANCE='ubuntu-1404'

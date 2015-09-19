@@ -37,6 +37,6 @@ script:
 after_failure: cat docker_daemon.log
 
 matrix:
-  - KITCHEN_INSTANCE='centos-71'
   - KITCHEN_INSTANCE='ubuntu-1204'
   - KITCHEN_INSTANCE='ubuntu-1404'
+  - KITCHEN_INSTANCE='centos-71'

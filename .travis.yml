@@ -1,5 +1,6 @@
-# Use Travis's cointainer based infrastructure
-sudo: false
+# Don't use Travis's cointainer based infrastructure, so we can run docker
+sudo: true
+
 addons:
   apt:
     sources:
@@ -10,11 +11,19 @@ addons:
 # Don't `bundle install`
 install: echo "skip bundle install"
 
+env:
+  global:
+  - KITCHEN_ARGS="--destroy=always"
+  - KITCHEN_LOCAL_YAML=.kitchen.docker.yml
+
 # Ensure we make ChefDK's Ruby the default
 before_script:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
-  # We have to install chef-sugar for ChefSpec
+  # We have to install mixlib-versioning for ChefSpec
   - /opt/chefdk/embedded/bin/chef gem install mixlib-versioning
+  # enable docker, see: https://github.com/zuazo/kitchen-in-travis
+  - /opt/chefdk/embedded/bin/chef gem install kitchen-docker
+  - source <(curl -sL https://raw.githubusercontent.com/zuazo/kitchen-in-travis/0.3.0/scripts/start_docker.sh)
 script:
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/rubocop --version
@@ -22,3 +31,11 @@ script:
   - /opt/chefdk/embedded/bin/foodcritic --version
   - /opt/chefdk/embedded/bin/foodcritic . --exclude spec
   - /opt/chefdk/embedded/bin/rspec spec
+  - echo "Testing $KITCHEN_INSTANCE"
+  - /opt/chefdk/embedded/bin/kitchen test $KITCHEN_INSTANCE
+
+after_failure: cat docker_daemon.log
+
+matrix:
+  - KITCHEN_INSTANCE='ubuntu-1204'
+  - KITCHEN_INSTANCE='ubuntu-1404'

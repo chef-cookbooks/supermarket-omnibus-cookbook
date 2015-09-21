@@ -10,3 +10,4 @@ version          '1.0.0'
 
 depends 'chef-ingredient'
 depends 'hostsfile'
+depends 'fancy_execute'

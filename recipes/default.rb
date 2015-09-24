@@ -5,6 +5,9 @@
 # Copyright (c) 2014 The Authors, All Rights Reserved.
 
 # Configure Supermarket server hostname in /etc/hosts if it isn't there (AWS)
+
+include_recipe 'chef-vault'
+
 hostsfile_entry node['ipaddress'] do
   hostname node['hostname']
   not_if "grep #{node['hostname']} /etc/hosts"
@@ -17,21 +20,23 @@ directory '/etc/supermarket' do
   action :create
 end
 
-# Sanity check the oc-id attributes
-%w(chef_server_url chef_oauth2_app_id chef_oauth2_secret).each do |attr|
-  unless node['supermarket_omnibus'][attr].is_a?(String)
-    Chef::Log.fatal("You did not set the node['supermarket_omnibus']['#{attr}'] value!")
-    Chef::Log.fatal('Please set this attribute before continuing')
-    fail
-  end
+# Sanity check the chef_server_url attribute for supermarket
+unless node['supermarket_omnibus']['chef_server_url'].is_a?(String)
+  Chef::Log.fatal("You did not set the node['supermarket_omnibus']['chef_server_url'] value!")
+  Chef::Log.fatal('Please set this attribute before continuing')
+  fail
 end
 
-file '/etc/supermarket/supermarket.json' do
-  action :create
-  owner 'root'
-  group 'root'
+supermarket_secrets = chef_vault_item('supermarket', 'secrets')
+
+template '/etc/supermarket/supermarket.json' do
+  source 'supermarket.json.erb'
   mode '0644'
-  content JSON.pretty_generate(node['supermarket_omnibus'])
+  variables chef_server_url: node['supermarket_omnibus']['chef_server_url'],
+            chef_oauth2_app_id: supermarket_secrets['chef_oauth2_app_id'],
+            chef_oauth2_secret: supermarket_secrets['chef_oauth2_secret'],
+            chef_oauth2_verify_ssl: node['supermarket_omnibus']['chef_oauth2_verify_ssl']
+  sensitive true
   notifies :reconfigure, 'chef_ingredient[supermarket]'
 end
 

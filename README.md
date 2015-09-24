@@ -10,9 +10,16 @@ Set the following attributes in the [`.kitchen.local.yml`](https://github.com/ir
 
 ```ruby
 default['supermarket_omnibus']['chef_server_url'] = 'https://chefserver.mycompany.com'
-default['supermarket_omnibus']['chef_oauth2_app_id'] = '14dfcf186221781cff51eedd5ac1616'
-default['supermarket_omnibus']['chef_oauth2_secret'] = 'a49402219627cfa6318d58b13e90aca'
 default['supermarket_omnibus']['chef_oauth2_verify_ssl'] = false
+```
+Create a chef vault called `supermarket` with an item called `secrets`.
+This will contain the app_id and secret for the supermarket application, for
+the oc_id auth.
+```json
+{
+    "chef_oauth2_app_id": "<....app_id....>",
+    "chef_oauth2_secret": "<....app_secret....>"
+}
 ```
 
 If you wish to specify a package version, a repository or a source, you can do that now:

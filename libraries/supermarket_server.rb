@@ -1,17 +1,34 @@
-require 'chef/resource/lwrp_base'
-require 'chef/provider/lwrp_base'
+require 'chef/resource'
+require 'chef/provider'
 
 class Chef
   class Resource
     # Missing top-level class documentation comment
-    class SupermarketServer < Chef::Resource::LWRPBase
-      resource_name :supermarket_server
-      default_action :create
+    class SupermarketServer < Chef::Resource
 
-      attribute :chef_server_url, kind_of: String
-      attribute :chef_oauth2_verify_ssl, kind_of: [TrueClass, FalseClass]
-      attribute :chef_oauth2_app_id, kind_of: String
-      attribute :chef_oauth2_secret, kind_of: String
+      def initialize(name, run_context=nil)
+        super
+        @resource_name = :supermarket_server
+        @provider = Chef::Provider::SupermarketServer
+        @action = :create
+        @allowed_actions = [:create]
+      end
+
+      def chef_server_url(arg = nil)
+        set_or_return(:chef_server_url, arg, kind_of: [String])
+      end
+
+      def chef_oauth2_app_id(arg = nil)
+        set_or_return(:chef_oauth2_app_id, arg, kind_of: [String])
+      end
+
+      def chef_oauth2_secret(arg = nil)
+        set_or_return(:chef_oauth2_secret, arg, kind_of: [String])
+      end
+
+      def chef_oauth2_verify_ssl(arg = nil)
+        set_or_return(:chef_oauth2_verify_ssl, arg, kind_of: [TrueClass, FalseClass])
+      end
     end
   end
 end
@@ -20,8 +37,11 @@ class Chef
   class Provider
     # Missing top-level class documentation comment
     class SupermarketServer < Chef::Provider::LWRPBase
-      provides :supermarket_server
-      use_inline_resources
+      use_inline_resources if defined?(use_inline_resources)
+
+      def whyrun_supported?
+        true
+      end
 
       def supermarket_config
         {
@@ -43,6 +63,7 @@ class Chef
         template '/etc/supermarket/supermarket.json' do
           source 'supermarket.json.erb'
           mode '0644'
+          cookbook 'supermarket-omnibus-cookbook'
           variables chef_server_url: supermarket_config['chef_server_url'],
                     chef_oauth2_app_id: supermarket_config['chef_oauth2_app_id'],
                     chef_oauth2_secret: supermarket_config['chef_oauth2_secret'],

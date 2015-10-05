@@ -39,6 +39,19 @@ describe 'supermarket-omnibus-cookbook::default' do
     it 'converges successfully' do
       chef_run # This should not raise an error
     end
+
+    it 'creates the template with the correct values' do
+      expect(chef_run).to create_template('/etc/supermarket/supermarket.json').with(
+        source: 'supermarket.json.erb', mode: '0644',
+        sensitive: true,
+        variables: {
+          chef_server_url: 'https://chefserver.mycorp.com',
+          chef_oauth2_app_id: 'blahblah',
+          chef_oauth2_secret: 'bob_lawblaw',
+          chef_oauth2_verify_ssl: false
+        }
+      )
+    end
   end
 
   context 'When a repository chef-current is specified' do

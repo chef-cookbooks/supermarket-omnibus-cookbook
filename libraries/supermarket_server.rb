@@ -5,8 +5,7 @@ class Chef
   class Resource
     # Missing top-level class documentation comment
     class SupermarketServer < Chef::Resource
-
-      def initialize(name, run_context=nil)
+      def initialize(name, run_context = nil)
         super
         @resource_name = :supermarket_server
         @provider = Chef::Provider::SupermarketServer
@@ -15,19 +14,19 @@ class Chef
       end
 
       def chef_server_url(arg = nil)
-        set_or_return(:chef_server_url, arg, kind_of: [String])
+        set_or_return(:chef_server_url, arg, kind_of: [String], required: true)
       end
 
       def chef_oauth2_app_id(arg = nil)
-        set_or_return(:chef_oauth2_app_id, arg, kind_of: [String])
+        set_or_return(:chef_oauth2_app_id, arg, kind_of: [String], required: true)
       end
 
       def chef_oauth2_secret(arg = nil)
-        set_or_return(:chef_oauth2_secret, arg, kind_of: [String])
+        set_or_return(:chef_oauth2_secret, arg, kind_of: [String], required: true)
       end
 
       def chef_oauth2_verify_ssl(arg = nil)
-        set_or_return(:chef_oauth2_verify_ssl, arg, kind_of: [TrueClass, FalseClass])
+        set_or_return(:chef_oauth2_verify_ssl, arg, kind_of: [TrueClass, FalseClass], required: true)
       end
     end
   end
@@ -53,13 +52,6 @@ class Chef
       end
 
       action :create do
-        %w(chef_server_url chef_oauth2_app_id chef_oauth2_secret).each do |attr|
-          unless supermarket_config[attr].is_a?(String)
-            Chef::Log.fatal("You did not provide the node #{attr} value!")
-            fail
-          end
-        end
-
         template '/etc/supermarket/supermarket.json' do
           source 'supermarket.json.erb'
           mode '0644'

@@ -18,7 +18,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'raises an error' do
-      expect { chef_run }.to raise_error(RuntimeError)
+      expect { chef_run }.to raise_exception
     end
   end
 
@@ -56,7 +56,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
   context 'When a repository chef-current is specified' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: ['chef_ingredient', 'supermarket_server']) do |node|
+      runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: %w(chef_ingredient supermarket_server)) do |node|
         node.set['supermarket_omnibus']['package_repo'] = 'chef-current'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
@@ -118,7 +118,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
   context 'When a package_url is specified, the Rpm provider should be used on RHEL systems' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: ['chef_ingredient', 'supermarket_server']) do |node|
+      runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: %w(chef_ingredient supermarket_server)) do |node|
         node.set['supermarket_omnibus']['package_url'] = 'https://web-dl.packagecloud.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'

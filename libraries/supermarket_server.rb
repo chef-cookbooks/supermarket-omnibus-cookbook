@@ -52,14 +52,11 @@ class Chef
       end
 
       action :create do
-        template '/etc/supermarket/supermarket.json' do
-          source 'supermarket.json.erb'
+        file '/etc/supermarket/supermarket.json' do
+          owner 'root'
+          group 'root'
           mode '0644'
-          cookbook 'supermarket-omnibus-cookbook'
-          variables chef_server_url: supermarket_config['chef_server_url'],
-                    chef_oauth2_app_id: supermarket_config['chef_oauth2_app_id'],
-                    chef_oauth2_secret: supermarket_config['chef_oauth2_secret'],
-                    chef_oauth2_verify_ssl: supermarket_config['chef_oauth2_verify_ssl']
+          content JSON.pretty_generate(supermarket_config)
           sensitive true
           notifies :reconfigure, 'chef_ingredient[supermarket]'
         end

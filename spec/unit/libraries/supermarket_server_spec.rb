@@ -42,16 +42,14 @@ describe 'supermarket-omnibus-cookbook::default' do
 
     it 'creates the template with the correct values' do
       expect(chef_run).to create_file('/etc/supermarket/supermarket.json').with(
-        content: JSON.pretty_generate({
-          chef_server_url: 'https://chefserver.mycorp.com',
-          chef_oauth2_app_id: 'blahblah',
-          chef_oauth2_secret: 'bob_lawblaw',
-          chef_oauth2_verify_ssl: false
-        }),
+        content: JSON.pretty_generate(chef_server_url: 'https://chefserver.mycorp.com',
+                                      chef_oauth2_app_id: 'blahblah',
+                                      chef_oauth2_secret: 'bob_lawblaw',
+                                      chef_oauth2_verify_ssl: false),
         owner: 'root',
         group: 'root',
         mode: '0644',
-        sensitive: true,
+        sensitive: true
       )
     end
   end

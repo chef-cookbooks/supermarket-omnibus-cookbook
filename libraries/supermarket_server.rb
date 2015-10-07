@@ -52,6 +52,17 @@ class Chef
       end
 
       action :create do
+        hostsfile_entry node['ipaddress'] do
+          hostname node['hostname']
+          not_if "grep #{node['hostname']} /etc/hosts"
+        end
+
+        directory '/etc/supermarket' do
+          owner 'root'
+          group 'root'
+          mode '0755'
+        end
+
         file '/etc/supermarket/supermarket.json' do
           owner 'root'
           group 'root'

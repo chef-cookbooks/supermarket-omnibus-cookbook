@@ -1,8 +1,13 @@
 # Use Travis's cointainer based infrastructure
-rvm: 2.2
-
 sudo: required
 services: docker
+
+addons:
+ apt:
+   sources:
+     - chef-stable-precise
+   packages:
+     - chefdk
 
 env:
   matrix:
@@ -13,8 +18,6 @@ env:
 # Don't `bundle install`
 install: echo "skip bundle install"
 
-# Ensure we make ChefDK's Ruby the default
-before_install: curl -L https://www.getchef.com/chef/install.sh | sudo bash -s -- -P chefdk
 before_script:
   # https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142230889
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )

@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/chef-cookbooks/supermarket-omnibus-cookbook.svg?branch=master)](https://travis-ci.org/chef-cookbooks/supermarket-omnibus-cookbook)
+
 # supermarket-omnibus-cookbook
 
 This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from PackageCloud.  

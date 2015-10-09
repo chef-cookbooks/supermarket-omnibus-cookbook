@@ -28,6 +28,10 @@ class Chef
       def chef_oauth2_verify_ssl(arg = nil)
         set_or_return(:chef_oauth2_verify_ssl, arg, kind_of: [TrueClass, FalseClass], required: true)
       end
+
+      def config(arg = nil)
+        set_or_return(:config, arg, kind_of: [Hash])
+      end
     end
   end
 end
@@ -51,6 +55,10 @@ class Chef
         }
       end
 
+      def merged_supermarket_config
+        new_resource.config.merge(supermarket_config)
+      end
+
       action :create do
         hostsfile_entry node['ipaddress'] do
           hostname node['hostname']
@@ -67,7 +75,7 @@ class Chef
           owner 'root'
           group 'root'
           mode '0644'
-          content JSON.pretty_generate(supermarket_config)
+          content JSON.pretty_generate(merged_supermarket_config)
           sensitive true
           notifies :reconfigure, 'chef_ingredient[supermarket]'
         end

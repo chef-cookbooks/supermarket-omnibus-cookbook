@@ -4,7 +4,9 @@
 #
 # Copyright (c) 2014 The Authors, All Rights Reserved.
 
-# Configure Supermarket server hostname in /etc/hosts if it isn't there (AWS)
+# Build the Supermarket server with this recipe if you use the node attributes.
+# If you wish to not use attributes, you may use the supermarket_server
+# resource/provider within your cookbook and pass attributes to the resource.
 
 supermarket_server 'supermarket' do
   chef_server_url node['supermarket_omnibus']['chef_server_url']

@@ -26,11 +26,28 @@ default['supermarket_omnibus']['package_repo'] = 'chef-current'
 default['supermarket_omnibus']['package_url'] = 'http://bit.ly/98K8eH'
 ```
 
+If you wish to use custom SSL certificates, define the following `config` attributes:
+
+```ruby
+default['supermarket_omnibus']['config']['ssl']['certificate'] = '/full/path/to/ssl.crt'
+default['supermarket_omnibus']['config']['ssl']['certificate_key'] = '/full/path/to/ssl.key'
+```
+
+To find out all supermarket `config` attributes you can override, see [omnibus-supermarket](https://github.com/chef/omnibus-supermarket/blob/master/cookbooks/omnibus-supermarket/attributes/default.rb). Translation of attributes from `supermarket-omnibus-cookbook` to attributes in `omnibus-supermarket` occurs in the `supermarket_server` resource provided by this cookbook which produces a JSON(`/etc/supermarket/supermarket.json`) that `omnibus-supermarket` reads. For example:
+
+```ruby
+# an attribute you define via this supermarket-omnibus-cookbook
+default['supermarket_omnibus']['config']['nginx']['log_rotation']['num_to_keep'] = 10
+
+# becomes the following in omnibus-supermarket
+default['supermarket']['nginx']['log_rotation']['num_to_keep'] = 10
+```
+
 # License and Authors
 
-- Author: Irving Popovetsky (<irving@getchef.com>)
+- Author: Irving Popovetsky (<irving@chef.io>)
 
-- Copyright (C) 2014, Chef Software, Inc. (<legal@getchef.com>)
+- Copyright (C) 2015, Chef Software, Inc. (<legal@chef.io>)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -43,4 +60,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-

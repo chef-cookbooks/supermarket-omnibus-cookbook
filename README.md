@@ -26,7 +26,8 @@ default['supermarket_omnibus']['package_repo'] = 'chef-current'
 default['supermarket_omnibus']['package_url'] = 'http://bit.ly/98K8eH'
 ```
 
-If you wish to use custom SSL certificates, define the following `config` attributes:
+If you wish to specify additional settings, you can pass them via the default['supermarket_omnibus']['config'] attribute.
+Example: for custom SSL certificates define the following `config` attributes:
 
 ```ruby
 default['supermarket_omnibus']['config']['ssl']['certificate'] = '/full/path/to/ssl.crt'

@@ -1,6 +1,7 @@
 # supermarket-omnibus-cookbook
 
-This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from PackageCloud.
+This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from PackageCloud.  
+This cookbook also renders supermarket.json file which is used for managing configuration of Supermarket.
 
 # Usage
 
@@ -26,12 +27,20 @@ default['supermarket_omnibus']['package_repo'] = 'chef-current'
 default['supermarket_omnibus']['package_url'] = 'http://bit.ly/98K8eH'
 ```
 
-If you wish to use custom SSL certificates, define the following `config` attributes:
+If you wish to specify additional settings, you can pass them via the `default['supermarket_omnibus']['config']` attribute.  
+Example: for custom SSL certificates define the following `config` attributes:
 
 ```ruby
 default['supermarket_omnibus']['config']['ssl']['certificate'] = '/full/path/to/ssl.crt'
 default['supermarket_omnibus']['config']['ssl']['certificate_key'] = '/full/path/to/ssl.key'
 ```
+Above attributes, if defined in supermarket.rb directly, would look like this:
+```ruby
+supermarket['ssl']['certificate'] = '/full/path/to/ssl.crt'
+supermarket['ssl']['certificate_key'] = '/full/path/to/ssl.key'
+```
+
+:warning: It’s super important to be aware that __supermarket.json always wins__. Best practice is to modify your supermarket configuration via `['config']` setting in a wrapper cookbook.
 
 To find out all supermarket `config` attributes you can override, see [omnibus-supermarket](https://github.com/chef/omnibus-supermarket/blob/master/cookbooks/omnibus-supermarket/attributes/default.rb). Translation of attributes from `supermarket-omnibus-cookbook` to attributes in `omnibus-supermarket` occurs in the `supermarket_server` resource provided by this cookbook which produces a JSON(`/etc/supermarket/supermarket.json`) that `omnibus-supermarket` reads. For example:
 

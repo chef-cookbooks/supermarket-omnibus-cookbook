@@ -42,6 +42,11 @@ supermarket['ssl']['certificate'] = '/full/path/to/ssl.crt'
 supermarket['ssl']['certificate_key'] = '/full/path/to/ssl.key'
 ```
 
+To enable a recent [collaborator groups](https://www.chef.io/blog/2015/12/18/collaborator-groups-on-supermarket/) [feature](https://www.youtube.com/watch?v=1t1T5CQ0j48) you'll need to add the following attribute into your cookbook wrapper:
+```ruby
+default['supermarket_omnibus']['config']['features'] = 'tools, gravatar, collaborator_groups'
+```
+
 :warning: It’s super important to be aware that __supermarket.json always wins__. Best practice is to modify your supermarket configuration via `['config']` setting in a wrapper cookbook.
 
 To find out all supermarket `config` attributes you can override, see [omnibus-supermarket](https://github.com/chef/omnibus-supermarket/blob/master/cookbooks/omnibus-supermarket/attributes/default.rb). Translation of attributes from `supermarket-omnibus-cookbook` to attributes in `omnibus-supermarket` occurs in the `supermarket_server` resource provided by this cookbook which produces a JSON(`/etc/supermarket/supermarket.json`) that `omnibus-supermarket` reads. For example:

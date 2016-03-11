@@ -109,6 +109,7 @@ class Chef
             Chef::Log.info "Using CHEF's public repository #{node['supermarket_omnibus']['package_repo']}"
             version node['supermarket_omnibus']['package_version']
           end
+          notifies :reconfigure, 'chef_ingredient[supermarket]'
         end
       end
     end

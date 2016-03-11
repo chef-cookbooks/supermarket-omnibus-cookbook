@@ -14,4 +14,10 @@ supermarket_server 'supermarket' do
   chef_oauth2_secret node['supermarket_omnibus']['chef_oauth2_secret']
   chef_oauth2_verify_ssl node['supermarket_omnibus']['chef_oauth2_verify_ssl']
   config node['supermarket_omnibus']['config'].to_hash
+  reconfig_after_upgrades node['supermarket_omnibus']['reconfig_after_upgrades']
+  restart_after_upgrades node['supermarket_omnibus']['restart_after_upgrades']
+  supermarket_version node['supermarket_omnibus']['package_version']
+  action :create
 end
+
+include_recipe 'supermarket-omnibus-cookbook::upgrades'

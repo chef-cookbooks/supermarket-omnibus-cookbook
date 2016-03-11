@@ -1,9 +1,11 @@
-
 default['supermarket_omnibus']['chef_server_url'] = nil
 default['supermarket_omnibus']['chef_oauth2_app_id'] = nil
 default['supermarket_omnibus']['chef_oauth2_secret'] = nil
 default['supermarket_omnibus']['chef_oauth2_verify_ssl'] = false
 default['supermarket_omnibus']['config'] = {}
+default['supermarket_omnibus']['upgrades_enabled'] = false
+default['supermarket_omnibus']['reconfig_after_upgrades'] = false
+default['supermarket_omnibus']['restart_after_upgrades'] = false
 
 default['supermarket_omnibus']['package_url'] = nil
 default['supermarket_omnibus']['package_version'] = :latest

@@ -1,8 +1,10 @@
 require_relative 'spec_helper'
 
+# rubocop:disable Performance/RedundantMatch
+
 describe 'supermarket' do
   it 'create a unicorn socket' do
-    expect(port 13_000).to be_listening
+    expect(port(13_000)).to be_listening
   end
 
   it 'serve Chef Supermarket index web page' do

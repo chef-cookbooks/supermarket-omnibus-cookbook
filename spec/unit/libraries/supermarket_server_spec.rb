@@ -114,10 +114,10 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
   end
 
-  context 'When a package_url is specified, packagecloud should not be used' do
+  context 'When a package_url is specified, packages.chef.io should not be used' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: 'supermarket_server') do |node|
-        node.set['supermarket_omnibus']['package_url'] = 'https://web-dl.packagecloud.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
+        node.set['supermarket_omnibus']['package_url'] = 'https://packages.chef.io/stable/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_loblaw'

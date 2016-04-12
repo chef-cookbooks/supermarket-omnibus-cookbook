@@ -2,7 +2,7 @@
 
 # supermarket-omnibus-cookbook
 
-This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from PackageCloud.  
+This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from package.chef.io.  
 This cookbook also renders supermarket.json file which is used for managing configuration of Supermarket.
 
 # Usage

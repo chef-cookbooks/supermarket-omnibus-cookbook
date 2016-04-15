@@ -5,6 +5,7 @@
 # Copyright (c) 2015 Irving Popovetsky, All Rights Reserved.
 
 require 'spec_helper'
+require 'mixlib/install'
 
 describe 'supermarket-omnibus-cookbook::default' do
   context 'When all attributes are default, it should fail because of nil checks' do
@@ -41,14 +42,11 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'creates the template with the correct values' do
-      expect(chef_run).to create_file('/etc/supermarket/supermarket.json').with(
-        content: JSON.pretty_generate(chef_server_url: 'https://chefserver.mycorp.com',
-                                      chef_oauth2_app_id: 'blahblah',
-                                      chef_oauth2_secret: 'bob_lawblaw',
-                                      chef_oauth2_verify_ssl: false),
-        owner: 'root',
-        group: 'root',
-        mode: '0644',
+      expect(chef_run).to install_chef_ingredient('supermarket').with(
+        config: JSON.pretty_generate(chef_server_url: 'https://chefserver.mycorp.com',
+                                     chef_oauth2_app_id: 'blahblah',
+                                     chef_oauth2_secret: 'bob_lawblaw',
+                                     chef_oauth2_verify_ssl: false),
         sensitive: true
       )
     end
@@ -57,7 +55,7 @@ describe 'supermarket-omnibus-cookbook::default' do
   context 'When additional config is provided' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: %w(chef_ingredient supermarket_server)) do |node|
-        node.set['supermarket_omnibus']['package_repo'] = 'chef-current'
+        node.set['supermarket_omnibus']['package_repo'] = 'current'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_lawblaw'
@@ -71,24 +69,21 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'creates the template with the correct values' do
-      expect(chef_run).to create_file('/etc/supermarket/supermarket.json').with(
-        content: JSON.pretty_generate(chef_oauth2_mode: 'blah',
-                                      chef_server_url: 'https://chefserver.mycorp.com',
-                                      chef_oauth2_app_id: 'blahblah',
-                                      chef_oauth2_secret: 'bob_lawblaw',
-                                      chef_oauth2_verify_ssl: false),
-        owner: 'root',
-        group: 'root',
-        mode: '0644',
+      expect(chef_run).to install_chef_ingredient('supermarket').with(
+        config: JSON.pretty_generate(chef_oauth2_mode: 'blah',
+                                     chef_server_url: 'https://chefserver.mycorp.com',
+                                     chef_oauth2_app_id: 'blahblah',
+                                     chef_oauth2_secret: 'bob_lawblaw',
+                                     chef_oauth2_verify_ssl: false),
         sensitive: true
       )
     end
   end
 
-  context 'When a repository chef-current is specified' do
+  context 'When a repository current is specified' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: %w(chef_ingredient supermarket_server)) do |node|
-        node.set['supermarket_omnibus']['package_repo'] = 'chef-current'
+        node.set['supermarket_omnibus']['package_repo'] = 'current'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_loblaw'
@@ -97,16 +92,21 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     before do
+      artifact_info = instance_double('artifact info',
+                                      url: 'https://packages.chef.io/current/el/6/supermarket-300.30.3-1.el6.x86_64.rpm',
+                                      sha256: 'f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b')
+      installer = instance_double('installer',
+                                  artifact_info: artifact_info)
+      allow_any_instance_of(Chef::Provider::ChefIngredient).to receive(:installer).and_return(installer)
       stub_command('grep Fauxhai /etc/hosts').and_return('33.33.33.11 Fauxhai')
     end
 
-    it 'includes the yum-chef::default recipe with the chef-current repositoryid' do
-      expect(chef_run).to include_recipe('yum-chef::default')
-      expect(chef_run.node['yum-chef']['repositoryid']) == 'chef-current'
+    it 'tells chef-ingredient to install the supermarket package from the current channel' do
+      expect(chef_run).to install_chef_ingredient('supermarket').with(channel: :current)
     end
 
-    it 'creates a package_repository named "chef-current"' do
-      expect(chef_run).to create_yum_repository('chef-current')
+    it 'fetches the supermarket package places it on the filesystem' do
+      expect(chef_run).to create_remote_file("#{Chef::Config[:file_cache_path]}/supermarket-300.30.3-1.el6.x86_64.rpm")
     end
 
     it 'converges successfully' do
@@ -117,7 +117,7 @@ describe 'supermarket-omnibus-cookbook::default' do
   context 'When a package_url is specified, packages.chef.io should not be used' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: 'supermarket_server') do |node|
-        node.set['supermarket_omnibus']['package_url'] = 'https://packages.chef.io/stable/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
+        node.set['supermarket_omnibus']['package_url'] = 'https://somethingelse.chef.io/stable/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_loblaw'
@@ -138,10 +138,6 @@ describe 'supermarket-omnibus-cookbook::default' do
         .with(package_source: ::File.join(Chef::Config[:file_cache_path], 'supermarket-1.10.1-alpha.0-1.el5.x86_64.rpm'))
     end
 
-    it 'does not create a package_repository named "chef-stable"' do
-      expect(chef_run).to_not create_yum_repository('chef-stable')
-    end
-
     it 'converges successfully' do
       chef_run # This should not raise an error
     end
@@ -150,7 +146,7 @@ describe 'supermarket-omnibus-cookbook::default' do
   context 'When a package_url is specified, the Rpm provider should be used on RHEL systems' do
     let(:chef_run) do
       runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: %w(chef_ingredient supermarket_server)) do |node|
-        node.set['supermarket_omnibus']['package_url'] = 'https://web-dl.packagecloud.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
+        node.set['supermarket_omnibus']['package_url'] = 'https://somethingelse.chef.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.set['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.set['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.set['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_loblaw'

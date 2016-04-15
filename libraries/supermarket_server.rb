@@ -65,21 +65,6 @@ class Chef
           not_if "grep #{node['hostname']} /etc/hosts"
         end
 
-        directory '/etc/supermarket' do
-          owner 'root'
-          group 'root'
-          mode '0755'
-        end
-
-        file '/etc/supermarket/supermarket.json' do
-          owner 'root'
-          group 'root'
-          mode '0644'
-          content JSON.pretty_generate(merged_supermarket_config)
-          sensitive true
-          notifies :reconfigure, 'chef_ingredient[supermarket]'
-        end
-
         if node['supermarket_omnibus']['package_url']
           pkgname = ::File.basename(node['supermarket_omnibus']['package_url'])
           cache_path = ::File.join(Chef::Config[:file_cache_path], pkgname).gsub(/~/, '-') # rubocop:disable Performance/StringReplacement
@@ -91,24 +76,21 @@ class Chef
           end
         end
 
-        case node['platform_family']
-        when 'debian'
-          node.default['apt-chef']['repo_name'] = node['supermarket_omnibus']['package_repo']
-        when 'rhel'
-          node.default['yum-chef']['repositoryid'] = node['supermarket_omnibus']['package_repo']
-        end
-
         chef_ingredient 'supermarket' do
+          channel     node['supermarket_omnibus']['package_repo'].to_sym
+          config      JSON.pretty_generate(merged_supermarket_config)
           ctl_command '/opt/supermarket/bin/supermarket-ctl'
+          sensitive   true
 
-          # Prefer package_url if set over custom repository
+          # If set, prefer package_url to packages.chef.io.
           if node['supermarket_omnibus']['package_url']
             Chef::Log.info "Using Supermarket package source: #{node['supermarket_omnibus']['package_url']}"
             package_source cache_path
           else
-            Chef::Log.info "Using CHEF's public repository #{node['supermarket_omnibus']['package_repo']}"
+            Chef::Log.info "Using CHEF's public channel #{node['supermarket_omnibus']['package_repo']}"
             version node['supermarket_omnibus']['package_version']
           end
+          action [:install, :reconfigure]
         end
       end
     end

@@ -76,6 +76,11 @@ class Chef
           end
         end
 
+        if node['supermarket_omnibus']['custom_repo_recipe']
+          Chef::Log.info "Using custom repo recipe: #{node['supermarket_omnibus']['custom_repo_recipe']}"
+          node.set['chef-ingredient']['custom_repo_recipe'] = node['supermarket_omnibus']['custom_repo_recipe']
+        end
+
         chef_ingredient 'supermarket' do
           channel     node['supermarket_omnibus']['package_repo'].to_sym
           config      JSON.pretty_generate(merged_supermarket_config)

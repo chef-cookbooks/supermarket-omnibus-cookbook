@@ -133,7 +133,7 @@ describe 'supermarket-omnibus-cookbook::default' do
       expect(chef_run).to create_remote_file("#{Chef::Config[:file_cache_path]}/supermarket-1.10.1-alpha.0-1.el5.x86_64.rpm")
     end
 
-    it 'uses the specified chef_ingredient[supermarket] with a package_url set' do
+    it 'uses the specified chef_ingredient[supermarket] with a package_source set' do
       expect(chef_run).to install_chef_ingredient('supermarket')
         .with(package_source: ::File.join(Chef::Config[:file_cache_path], 'supermarket-1.10.1-alpha.0-1.el5.x86_64.rpm'))
     end

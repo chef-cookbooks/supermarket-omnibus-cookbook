@@ -18,15 +18,15 @@ describe 'supermarket' do
 
   it 'has > 0 ICLAs' do
     cmd = command %{echo 'SELECT count("iclas".*) FROM "iclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
-    cmd.stdout.match(/\((\d).*/)
-    res = $1.to_i
+    cmd.stdout =~ /\((\d).*/
+    res = Regexp.last_match(1).to_i
     expect(res).to be > 0
   end
 
   it 'has > 0 CCLAs' do
     cmd = command %{echo 'SELECT count("cclas".*) FROM "cclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
-    cmd.stdout.match(/\((\d).*/)
-    res = $1.to_i
+    cmd.stdout =~ /\((\d).*/
+    res = Regexp.last_match(1).to_i
     expect(res).to be > 0
   end
 

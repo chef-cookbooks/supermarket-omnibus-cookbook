@@ -82,7 +82,7 @@ class Chef
 
         if node['supermarket_omnibus']['package_url']
           pkgname = ::File.basename(node['supermarket_omnibus']['package_url'])
-          cache_path = ::File.join(Chef::Config[:file_cache_path], pkgname).gsub(/~/, '-')
+          cache_path = ::File.join(Chef::Config[:file_cache_path], pkgname).tr('~', '-')
 
           # recipe
           remote_file cache_path do

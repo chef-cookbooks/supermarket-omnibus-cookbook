@@ -15,8 +15,11 @@ env:
   - INSTANCE=default-ubuntu-1204
   - INSTANCE=default-centos-71
 
-# Don't `bundle install`
-install: echo "skip bundle install"
+# Do `bundle install` to get mixlib-shellout ~> 1.0. 
+# test-kitchen 1.6.0 and test-kitchen 1.6.0 depend on mixlib-install ~> 0.7.0.
+install:
+  - eval "$(/opt/chefdk/bin/chef shell-init bash)"
+  - bundle install
 
 before_script:
   # https://github.com/zuazo/kitchen-in-travis-native/issues/1#issuecomment-142230889
@@ -31,5 +34,5 @@ script:
   - /opt/chefdk/embedded/bin/rubocop
   - /opt/chefdk/embedded/bin/foodcritic --version
   - /opt/chefdk/embedded/bin/foodcritic . --exclude spec
-  - /opt/chefdk/embedded/bin/rspec spec
+  - bundle exec rspec spec
   - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}

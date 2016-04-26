@@ -2,11 +2,11 @@ require_relative 'spec_helper'
 
 describe 'postgres' do
   it 'running' do
-    expect(process 'postgres').to be_running
+    expect(process('postgres')).to be_running
   end
 
   it 'listen tcp socket' do
-    expect(port 15_432).to be_listening
+    expect(port(15_432)).to be_listening
   end
 
   it 'has supermarket user' do

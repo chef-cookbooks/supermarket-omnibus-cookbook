@@ -7,6 +7,10 @@ default['supermarket_omnibus']['config'] = {}
 
 default['supermarket_omnibus']['package_url'] = nil
 default['supermarket_omnibus']['package_version'] = :latest
-default['supermarket_omnibus']['package_repo'] = 'chef-stable'
-# use the following to consume nightly builds of packagecloud:
-# default['supermarket_omnibus']['package_repo'] = 'chef-current'
+default['supermarket_omnibus']['package_repo'] = 'stable'
+
+# Specify a recipe to install supermarket from a custom repo.
+default['supermarket_omnibus']['custom_repo_recipe'] = nil
+
+# use the following to consume integration builds:
+# default['supermarket_omnibus']['package_repo'] = 'current'

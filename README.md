@@ -2,7 +2,7 @@
 
 # supermarket-omnibus-cookbook
 
-This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from PackageCloud.  
+This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from package.chef.io.  
 This cookbook also renders supermarket.json file which is used for managing configuration of Supermarket.
 
 # Usage
@@ -18,15 +18,18 @@ default['supermarket_omnibus']['chef_oauth2_secret'] = 'a49402219627cfa6318d58b1
 default['supermarket_omnibus']['chef_oauth2_verify_ssl'] = false
 ```
 
-If you wish to specify a package version, a repository or a source, you can do that now:
+If you wish to specify a package version, a channel, or a source, you can do that now.  You can also specify a recipe to install from your own package repository.
 ```ruby
 default['supermarket_omnibus']['package_version'] = '1.2.3'
 
-# install from the repository of nightly packages
-default['supermarket_omnibus']['package_repo'] = 'chef-current'
+# install from Chef's `current` channel
+default['supermarket_omnibus']['package_repo'] = 'current'
 
 # OR, specify a Supermarket package explicitly from a location of your choosing
 default['supermarket_omnibus']['package_url'] = 'http://bit.ly/98K8eH'
+
+# specify a recipe to install from your own package repository
+default['supermarket_omnibus']['custom_repo_recipe'] = 'my_cookbook::my_repo'
 ```
 
 If you wish to specify additional settings, you can pass them via the `default['supermarket_omnibus']['config']` attribute.  

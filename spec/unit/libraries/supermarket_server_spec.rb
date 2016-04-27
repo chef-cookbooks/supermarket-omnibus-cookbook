@@ -65,6 +65,12 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     before do
+      artifact_info = instance_double('artifact info',
+                                      url: 'https://packages.chef.io/current/el/6/supermarket-300.30.3-1.el6.x86_64.rpm',
+                                      sha256: 'f0e4c2f76c58916ec258f246851bea091d14d4247a2fc3e18694461b1816e13b')
+      installer = instance_double('installer',
+                                  artifact_info: artifact_info)
+      allow_any_instance_of(Chef::Provider::ChefIngredient).to receive(:installer).and_return(installer)
       stub_command('grep Fauxhai /etc/hosts').and_return('33.33.33.11 Fauxhai')
     end
 

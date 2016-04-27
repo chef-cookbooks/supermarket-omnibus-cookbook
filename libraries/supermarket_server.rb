@@ -78,7 +78,7 @@ class Chef
 
         if node['supermarket_omnibus']['custom_repo_recipe']
           Chef::Log.info "Using custom repo recipe: #{node['supermarket_omnibus']['custom_repo_recipe']}"
-          node.set['chef-ingredient']['custom_repo_recipe'] = node['supermarket_omnibus']['custom_repo_recipe']
+          node.set['chef-ingredient']['custom-repo-recipe'] = node['supermarket_omnibus']['custom_repo_recipe']
         end
 
         chef_ingredient 'supermarket' do

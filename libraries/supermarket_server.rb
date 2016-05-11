@@ -95,7 +95,7 @@ class Chef
             Chef::Log.info "Using CHEF's public channel #{node['supermarket_omnibus']['package_repo']}"
             version node['supermarket_omnibus']['package_version']
           end
-          action [:install, :reconfigure]
+          action [:upgrade, :reconfigure]
         end
       end
     end

@@ -42,7 +42,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'creates the template with the correct values' do
-      expect(chef_run).to install_chef_ingredient('supermarket').with(
+      expect(chef_run).to upgrade_chef_ingredient('supermarket').with(
         config: JSON.pretty_generate(chef_server_url: 'https://chefserver.mycorp.com',
                                      chef_oauth2_app_id: 'blahblah',
                                      chef_oauth2_secret: 'bob_lawblaw',
@@ -75,7 +75,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'creates the template with the correct values' do
-      expect(chef_run).to install_chef_ingredient('supermarket').with(
+      expect(chef_run).to upgrade_chef_ingredient('supermarket').with(
         config: JSON.pretty_generate(chef_oauth2_mode: 'blah',
                                      chef_server_url: 'https://chefserver.mycorp.com',
                                      chef_oauth2_app_id: 'blahblah',
@@ -108,7 +108,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'tells chef-ingredient to install the supermarket package from the current channel' do
-      expect(chef_run).to install_chef_ingredient('supermarket').with(channel: :current)
+      expect(chef_run).to upgrade_chef_ingredient('supermarket').with(channel: :current)
     end
 
     it 'fetches the supermarket package places it on the filesystem' do
@@ -140,7 +140,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'uses the specified chef_ingredient[supermarket] with a package_source set' do
-      expect(chef_run).to install_chef_ingredient('supermarket')
+      expect(chef_run).to upgrade_chef_ingredient('supermarket')
         .with(package_source: ::File.join(Chef::Config[:file_cache_path], 'supermarket-1.10.1-alpha.0-1.el5.x86_64.rpm'))
     end
 

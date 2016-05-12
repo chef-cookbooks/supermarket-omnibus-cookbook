@@ -1,3 +1,6 @@
+branches:
+  only:
+  - master
 # Use Travis's cointainer based infrastructure
 sudo: required
 services: docker
@@ -15,7 +18,7 @@ env:
   - INSTANCE=default-ubuntu-1204
   - INSTANCE=default-centos-71
 
-# Do `bundle install` to get mixlib-shellout ~> 1.0. 
+# Do `bundle install` to get mixlib-shellout ~> 1.0.
 # test-kitchen 1.6.0 and test-kitchen 1.6.0 depend on mixlib-install ~> 0.7.0.
 install:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"

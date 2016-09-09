@@ -13,7 +13,7 @@ describe 'supermarket' do
   end
 
   it 'still serves Chef Supermarket when Unicorn is restarted' do
-    restart = command 'supermarket-ctl restart rails; sleep 5'
+    restart = command 'supermarket-ctl restart rails; sleep 5' # rubocop: disable Lint/UselessAssignment
     cmd = command 'wget --no-check-certificate -O - https://localhost 2> /dev/null'
     expect(cmd.stdout).to match '<!DOCTYPE html>'
   end
@@ -21,14 +21,14 @@ describe 'supermarket' do
   it 'has > 0 ICLAs' do
     cmd = command %{echo 'SELECT count("iclas".*) FROM "iclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
     cmd.stdout.match(/\((\d).*/)
-    res = $1.to_i
+    res = Regexp.last_match(1).to_i
     expect(res).to be > 0
   end
 
   it 'has > 0 CCLAs' do
     cmd = command %{echo 'SELECT count("cclas".*) FROM "cclas";' | sudo -u supermarket /opt/supermarket/embedded/bin/psql -h 127.0.0.1 -p 15432 supermarket | grep '^(. row.*)'}
     cmd.stdout.match(/\((\d).*/)
-    res = $1.to_i
+    res = Regexp.last_match(1).to_i
     expect(res).to be > 0
   end
 

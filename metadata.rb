@@ -7,7 +7,6 @@ source_url       'https://github.com/irvingpop/supermarket-omnibus-cookbook'
 issues_url       'https://github.com/irvingpop/supermarket-omnibus-cookbook/issues'
 version          '1.4.1'
 
-
 depends 'chef-ingredient', '>= 0.18.0'
 depends 'hostsfile'
 depends 'fancy_execute'

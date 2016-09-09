@@ -21,7 +21,7 @@ platforms:
     driver:
       network:
       - ["private_network", {ip: "33.33.33.24"}]
-  - name: centos-6.6
+  - name: centos-6.8
     driver:
       network:
       - ["private_network", {ip: "33.33.33.25"}]

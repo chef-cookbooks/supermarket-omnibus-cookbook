@@ -1,5 +1,5 @@
 # Configure a custom repository setup recipe
-node.set['supermarket_omnibus']['custom_repo_recipe'] = 'custom_repo::custom_repo_recipe'
+node.normal['supermarket_omnibus']['custom_repo_recipe'] = 'custom_repo::custom_repo_recipe'
 
 supermarket_server 'supermarket' do
   chef_server_url node['supermarket_omnibus']['chef_server_url']

@@ -6,8 +6,8 @@
 
 describe 'test::custom_repo_setup' do
   context 'When a custom recipe is specified, the custom recipe should be used' do
-    let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'redhat', version: '6.5', step_into: %w(chef_ingredient supermarket_server)) do |node|
+    cached(:chef_run) do
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8', step_into: %w(chef_ingredient supermarket_server)) do |node|
         node.normal['supermarket_omnibus']['chef_server_url'] = 'https://chefserver.mycorp.com'
         node.normal['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.normal['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_lawblaw'

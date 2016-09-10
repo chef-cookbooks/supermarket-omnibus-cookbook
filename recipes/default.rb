@@ -2,7 +2,7 @@
 # Cookbook Name:: supermarket-omnibus-cookbook
 # Recipe:: default
 #
-# Copyright (c) 2014 The Authors, All Rights Reserved.
+# Copyright (c) 2014-2016 Chef Software, Inc.
 
 # Build the Supermarket server with this recipe if you use the node attributes.
 # If you wish to not use attributes, you may use the supermarket_server

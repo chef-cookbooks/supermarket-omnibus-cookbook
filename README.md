@@ -1,13 +1,29 @@
-[![Build Status](https://travis-ci.org/chef-cookbooks/supermarket-omnibus-cookbook.svg?branch=master)](https://travis-ci.org/chef-cookbooks/supermarket-omnibus-cookbook)
-
 # supermarket-omnibus-cookbook
+
+[![Build Status](https://travis-ci.org/chef-cookbooks/supermarket-omnibus-cookbook.svg?branch=master)](https://travis-ci.org/chef-cookbooks/supermarket-omnibus-cookbook) [![Cookbook Version](https://img.shields.io/cookbook/v/supermarket-omnibus-cookbook.svg)](https://supermarket.chef.io/cookbooks/supermarket-omnibus-cookbook)
 
 This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from package.chef.io.<br>
 This cookbook also renders supermarket.json file which is used for managing configuration of Supermarket.
 
-# Usage
+## Requirements
 
-## Attributes
+### Platforms
+
+- Ubuntu 12.04+
+- RHEL 6+
+
+### Chef
+
+- Chef 12.1+
+
+### Cookbooks
+
+- chef-ingredient
+- compat_resource
+- hostsfile
+- fancy_execute
+
+## Usage
 
 Set the following attributes in the [`.kitchen.local.yml`](https://github.com/irvingpop/supermarket-omnibus-cookbook/blob/master/.kitchen.local.yml.example) or via a wrapper cookbook. The values will be obtained from your oc-id server. For more information see: [Getting Started with oc-id and Supermarket](http://irvingpop.github.io/blog/2015/04/07/setting-up-your-private-supermarket-server/)
 
@@ -66,14 +82,22 @@ default['supermarket_omnibus']['config']['nginx']['log_rotation']['num_to_keep']
 default['supermarket']['nginx']['log_rotation']['num_to_keep'] = 10
 ```
 
-# License and Authors
+## License & Authors
 
 - Author: Irving Popovetsky ([irving@chef.io](mailto:irving@chef.io))
 
-- Copyright (C) 2015-2016, Chef Software, Inc. ([legal@chef.io](mailto:legal@chef.io))
+```text
+Copyright:: 2015-2016, Chef Software, Inc
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-<http://www.apache.org/licenses/LICENSE-2.0>
+    http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```

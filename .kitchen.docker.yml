@@ -8,6 +8,7 @@ transport:
 
 provisioner:
   name: dokken
+  chef_zero_port: 9010
 
 verifier:
   name: inspec
@@ -19,7 +20,7 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release procps -y
+      - RUN /usr/bin/apt-get install lsb-release procps net-tools -y
 
 - name: debian-8
   driver:
@@ -27,7 +28,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release -y
+      - RUN /usr/bin/apt-get install lsb-release net-tools -y
 
 - name: centos-5
   driver:
@@ -66,6 +67,8 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
+
 
 - name: ubuntu-14.04
   driver:
@@ -73,6 +76,7 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
 
 - name: ubuntu-16.04
   driver:
@@ -80,6 +84,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
+      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
 
 - name: opensuse-13.2
   driver:

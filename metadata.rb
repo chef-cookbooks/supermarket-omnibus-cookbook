@@ -8,7 +8,11 @@ issues_url       'https://github.com/irvingpop/supermarket-omnibus-cookbook/issu
 chef_version     '>= 12.1'
 version          '2.0.0'
 
+supports 'ubuntu'
+supports 'redhat'
+supports 'centos'
+
 depends 'chef-ingredient', '>= 0.19.0'
-depends 'compat_resource', '>= 12.14'
+depends 'compat_resource', '>= 12.14.3'
 depends 'hostsfile'
 depends 'fancy_execute'

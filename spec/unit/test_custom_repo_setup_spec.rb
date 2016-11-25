@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: supermarket-omnibus-cookbook
+# Cookbook:: supermarket-omnibus-cookbook
 # Spec:: custom_repo_setup
 #
-# Copyright (c) 2016 Yvonne Lam, All Rights Reserved.
+# Copyright:: 2016, Yvonne Lam, All Rights Reserved.
 
 describe 'test::custom_repo_setup' do
   context 'When a custom recipe is specified, the custom recipe should be used' do

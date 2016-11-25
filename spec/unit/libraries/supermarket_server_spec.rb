@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: supermarket-omnibus-cookbook
+# Cookbook:: supermarket-omnibus-cookbook
 # Spec:: default
 #
-# Copyright (c) 2015 Irving Popovetsky, All Rights Reserved.
+# Copyright:: 2015-2016, Irving Popovetsky, All Rights Reserved.
 
 require 'spec_helper'
 require 'mixlib/install'

@@ -64,11 +64,7 @@ supermarket['ssl']['certificate'] = '/full/path/to/ssl.crt'
 supermarket['ssl']['certificate_key'] = '/full/path/to/ssl.key'
 ```
 
-To enable a recent [collaborator groups](https://www.chef.io/blog/2015/12/18/collaborator-groups-on-supermarket/) [feature](https://www.youtube.com/watch?v=1t1T5CQ0j48) you'll need to add the following attribute into your cookbook wrapper:
-
-```ruby
-default['supermarket_omnibus']['config']['features'] = 'tools, gravatar, collaborator_groups'
-```
+The [Collaborator Groups](https://www.chef.io/blog/2015/12/18/collaborator-groups-on-supermarket/) [feature](https://www.youtube.com/watch?v=1t1T5CQ0j48) is enabled in this cookbook's `attributes/default.rb`.
 
 :warning: It's super important to be aware that **supermarket.json always wins**. Best practice is to modify your supermarket configuration via `['config']` setting in a wrapper cookbook.
 

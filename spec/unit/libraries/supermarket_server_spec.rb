@@ -78,7 +78,8 @@ describe 'supermarket-omnibus-cookbook::default' do
 
     it 'creates the template with the correct values' do
       expect(chef_run).to upgrade_chef_ingredient('supermarket').with(
-        config: JSON.pretty_generate(features: 'tools, gravatar, collaborator_groups',chef_oauth2_mode: 'blah',
+        config: JSON.pretty_generate(features: 'tools, gravatar, collaborator_groups',
+                                     chef_oauth2_mode: 'blah',
                                      chef_server_url: 'https://chefserver.mycorp.com',
                                      chef_oauth2_app_id: 'blahblah',
                                      chef_oauth2_secret: 'bob_lawblaw',

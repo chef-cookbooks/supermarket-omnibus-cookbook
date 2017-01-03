@@ -69,7 +69,7 @@ action_class do
       'chef_server_url' => new_resource.chef_server_url,
       'chef_oauth2_app_id' => new_resource.chef_oauth2_app_id,
       'chef_oauth2_secret' => new_resource.chef_oauth2_secret,
-      'chef_oauth2_verify_ssl' => new_resource.chef_oauth2_verify_ssl
+      'chef_oauth2_verify_ssl' => new_resource.chef_oauth2_verify_ssl,
     }
   end
 

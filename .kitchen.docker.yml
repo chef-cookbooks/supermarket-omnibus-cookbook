@@ -45,7 +45,7 @@ platforms:
     platform: rhel
     pid_one_command: /sbin/init
     intermediate_instructions:
-      - RUN yum -y install which initscripts
+      - RUN yum -y install which initscripts crontabs
 
 - name: centos-7
   driver:
@@ -53,7 +53,7 @@ platforms:
     platform: rhel
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN yum -y install lsof which systemd-sysv initscripts
+      - RUN yum -y install lsof which systemd-sysv initscripts crontabs
 
 - name: fedora-latest
   driver:

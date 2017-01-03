@@ -29,6 +29,7 @@ describe 'supermarket-omnibus-cookbook::default' do
         node.normal['supermarket_omnibus']['chef_server_url'] = 'https://chefserver.mycorp.com'
         node.normal['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.normal['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_lawblaw'
+        node.normal['supermarket_omnibus']['config']['features'] = 'tools, gravatar, collaborator_groups'
       end
       runner.converge(described_recipe)
     end
@@ -43,7 +44,8 @@ describe 'supermarket-omnibus-cookbook::default' do
 
     it 'creates the template with the correct values' do
       expect(chef_run).to upgrade_chef_ingredient('supermarket').with(
-        config: JSON.pretty_generate(chef_server_url: 'https://chefserver.mycorp.com',
+        config: JSON.pretty_generate(features: 'tools, gravatar, collaborator_groups',
+                                     chef_server_url: 'https://chefserver.mycorp.com',
                                      chef_oauth2_app_id: 'blahblah',
                                      chef_oauth2_secret: 'bob_lawblaw',
                                      chef_oauth2_verify_ssl: false),
@@ -76,7 +78,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
     it 'creates the template with the correct values' do
       expect(chef_run).to upgrade_chef_ingredient('supermarket').with(
-        config: JSON.pretty_generate(chef_oauth2_mode: 'blah',
+        config: JSON.pretty_generate(features: 'tools, gravatar, collaborator_groups',chef_oauth2_mode: 'blah',
                                      chef_server_url: 'https://chefserver.mycorp.com',
                                      chef_oauth2_app_id: 'blahblah',
                                      chef_oauth2_secret: 'bob_lawblaw',

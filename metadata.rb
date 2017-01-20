@@ -12,7 +12,7 @@ supports 'ubuntu'
 supports 'redhat'
 supports 'centos'
 
-depends 'chef-ingredient', '>= 0.19.0'
+depends 'chef-ingredient', '>= 0.21.2'
 depends 'compat_resource', '>= 12.14.3'
 depends 'hostsfile'
 depends 'fancy_execute'

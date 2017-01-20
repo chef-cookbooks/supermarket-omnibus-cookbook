@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the supermarket-omnibus-cookbook cookbook.
 
+## 2.0.1 (2017-01-20)
+
+- Upgrade chef-ingredient to use updated mixlib-install (PackageRouter support)
+
 ## 2.0.0 (2016-09-12)
 
 - Convert the LWRP to a custom resource and use compat_resource for Chef 12.1+ compatibility

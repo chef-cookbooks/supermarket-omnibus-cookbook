@@ -3,6 +3,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
   chef_zero_port: 9010
 
 platforms:
@@ -26,7 +27,7 @@ platforms:
     driver:
       network:
       - ["private_network", {ip: "33.33.33.25"}]
-  - name: centos-7.1
+  - name: centos-7.3
     driver:
       network:
       - ["private_network", {ip: "33.33.33.28"}]

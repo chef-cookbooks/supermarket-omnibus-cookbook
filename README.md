@@ -14,12 +14,11 @@ This cookbook also renders supermarket.json file which is used for managing conf
 
 ### Chef
 
-- Chef 12.1+
+- Chef 12.5+
 
 ### Cookbooks
 
 - chef-ingredient
-- compat_resource
 - hostsfile
 - fancy_execute
 

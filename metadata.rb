@@ -14,4 +14,3 @@ supports 'centos'
 
 depends 'chef-ingredient', '>= 0.21.2'
 depends 'hostsfile'
-depends 'fancy_execute'

@@ -20,7 +20,6 @@ This cookbook also renders supermarket.json file which is used for managing conf
 
 - chef-ingredient
 - hostsfile
-- fancy_execute
 
 ## Usage
 

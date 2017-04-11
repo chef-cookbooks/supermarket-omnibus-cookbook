@@ -20,7 +20,7 @@ property :instance_name, String, name_property: true
 property :chef_server_url, String, required: true
 property :chef_oauth2_app_id, String, required: true
 property :chef_oauth2_secret, String, required: true
-property :chef_oauth2_verify_ssl, [TrueClass, FalseClass], required: true
+property :chef_oauth2_verify_ssl, [true, false], required: true
 property :config, Hash
 
 action :create do

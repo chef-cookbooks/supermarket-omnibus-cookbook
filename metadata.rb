@@ -12,5 +12,5 @@ supports 'ubuntu'
 supports 'redhat'
 supports 'centos'
 
-depends 'chef-ingredient', '>= 0.21.2'
+depends 'chef-ingredient', '>= 1.1.0'
 depends 'hostsfile'

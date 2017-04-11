@@ -87,3 +87,4 @@ suites:
         chef_oauth2_app_id: randomstring
         chef_oauth2_secret: randomstring
         chef_oauth2_verify_ssl: false
+        package_repo: current

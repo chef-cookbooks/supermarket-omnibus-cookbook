@@ -2,7 +2,7 @@
 # Cookbook:: supermarket-omnibus-cookbook
 # Resource:: supermarket_server
 #
-# Copyright:: 2015-2016, Chef Software, Inc.
+# Copyright:: 2015-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@ action :create do
   end
 end
 
-action_class do
+action_class.class_eval do
   def supermarket_config
     {
       'chef_server_url' => new_resource.chef_server_url,

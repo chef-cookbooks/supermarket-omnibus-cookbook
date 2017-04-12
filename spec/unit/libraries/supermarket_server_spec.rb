@@ -2,7 +2,7 @@
 # Cookbook:: supermarket-omnibus-cookbook
 # Spec:: default
 #
-# Copyright:: 2015-2016, Irving Popovetsky, All Rights Reserved.
+# Copyright:: 2015-2017, Irving Popovetsky, All Rights Reserved.
 
 require 'spec_helper'
 require 'mixlib/install'
@@ -19,7 +19,7 @@ describe 'supermarket-omnibus-cookbook::default' do
     end
 
     it 'raises an error' do
-      expect { chef_run }.to raise_exception
+      expect { chef_run }.to raise_exception(Chef::Exceptions::ValidationFailed)
     end
   end
 
@@ -112,10 +112,6 @@ describe 'supermarket-omnibus-cookbook::default' do
 
     it 'tells chef-ingredient to install the supermarket package from the current channel' do
       expect(chef_run).to upgrade_chef_ingredient('supermarket').with(channel: :current)
-    end
-
-    it 'fetches the supermarket package places it on the filesystem' do
-      expect(chef_run).to create_remote_file("#{Chef::Config[:file_cache_path]}/supermarket-300.30.3-1.el6.x86_64.rpm")
     end
 
     it 'converges successfully' do

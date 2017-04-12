@@ -1,7 +1,6 @@
 driver:
   name: dokken
   privileged: true # because Docker and SystemD/Upstart
-  chef_image: chef/chef
   chef_version: current
 
 transport:
@@ -10,6 +9,7 @@ transport:
 provisioner:
   name: dokken
   chef_zero_port: 9010
+  deprecations_as_errors: true
 
 verifier:
   name: inspec
@@ -29,15 +29,7 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release net-tools -y
-
-- name: centos-5
-  driver:
-    image: centos:5
-    platform: rhel
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN yum install -y which initscripts
+      - RUN /usr/bin/apt-get install lsb-release procps net-tools -y
 
 - name: centos-6
   driver:
@@ -45,7 +37,7 @@ platforms:
     platform: rhel
     pid_one_command: /sbin/init
     intermediate_instructions:
-      - RUN yum -y install which initscripts crontabs
+      - RUN yum -y install lsof which initscripts net-tools wget net-tools crontabs
 
 - name: centos-7
   driver:
@@ -53,23 +45,14 @@ platforms:
     platform: rhel
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN yum -y install lsof which systemd-sysv initscripts crontabs
+      - RUN yum -y install lsof which systemd-sysv initscripts wget net-tools crontabs
 
 - name: fedora-latest
   driver:
     image: fedora:latest
     pid_one_command: /usr/lib/systemd/systemd
     intermediate_instructions:
-      - RUN dnf -y install yum which systemd-sysv initscripts
-
-- name: ubuntu-12.04
-  driver:
-    image: ubuntu-upstart:12.04
-    pid_one_command: /sbin/init
-    intermediate_instructions:
-      - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
-
+      - RUN dnf -y install which systemd-sysv initscripts wget net-tools
 
 - name: ubuntu-14.04
   driver:
@@ -77,7 +60,7 @@ platforms:
     pid_one_command: /sbin/init
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
+      - RUN /usr/bin/apt-get install lsb-release procps net-tools cron hostname -y
 
 - name: ubuntu-16.04
   driver:
@@ -85,18 +68,11 @@ platforms:
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN /usr/bin/apt-get update
-      - RUN /usr/bin/apt-get install lsb-release net-tools cron -y
+      - RUN /usr/bin/apt-get install lsb-release net-tools cron hostname -y
 
-- name: opensuse-13.2
+- name: opensuse-leap
   driver:
-    image: opensuse:13.2
-    pid_one_command: /bin/systemd
-    intermediate_instructions:
-      - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which net-tools
-
-- name: opensuse-42.1
-  driver:
-    image: opensuse:42.1
+    image: opensuse:leap
     pid_one_command: /bin/systemd
     intermediate_instructions:
       - RUN zypper --non-interactive install aaa_base perl-Getopt-Long-Descriptive which hostname
@@ -111,3 +87,4 @@ suites:
         chef_oauth2_app_id: randomstring
         chef_oauth2_secret: randomstring
         chef_oauth2_verify_ssl: false
+        package_repo: current

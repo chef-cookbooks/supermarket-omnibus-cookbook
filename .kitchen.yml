@@ -3,13 +3,10 @@ driver:
 
 provisioner:
   name: chef_zero
+  deprecations_as_errors: true
   chef_zero_port: 9010
 
 platforms:
-  - name: ubuntu-12.04
-    driver:
-      network:
-      - ["private_network", {ip: "33.33.33.20"}]
   - name: ubuntu-14.04
     driver:
       network:
@@ -18,15 +15,11 @@ platforms:
     driver:
       network:
       - ["private_network", {ip: "33.33.33.22"}]
-  - name: centos-5.11
-    driver:
-      network:
-      - ["private_network", {ip: "33.33.33.24"}]
   - name: centos-6.8
     driver:
       network:
       - ["private_network", {ip: "33.33.33.25"}]
-  - name: centos-7.1
+  - name: centos-7.3
     driver:
       network:
       - ["private_network", {ip: "33.33.33.28"}]

@@ -2,6 +2,11 @@
 
 This file is used to list changes made in each version of the supermarket-omnibus-cookbook cookbook.
 
+## 3.0.0 (2017-04-11)
+
+- Require Chef 12.5+ (for custom resources) and remove compat_resource &
+  fancy_execute dependencies
+
 ## 2.0.1 (2017-01-20)
 
 - Upgrade chef-ingredient to use updated mixlib-install (PackageRouter support)

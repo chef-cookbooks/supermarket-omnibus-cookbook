@@ -6,7 +6,7 @@ description      'Installs and Configures Supermarket from the Omnibus packages 
 source_url       'https://github.com/chef-cookbooks/supermarket-omnibus-cookbook'
 issues_url       'https://github.com/chef-cookbooks/supermarket-omnibus-cookbook/issues'
 chef_version     '>= 12.5' if respond_to?(:chef_version)
-version          '2.0.1'
+version          '3.0.0'
 
 supports 'ubuntu'
 supports 'redhat'

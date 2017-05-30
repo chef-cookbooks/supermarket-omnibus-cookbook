@@ -14,7 +14,7 @@ This cookbook also renders supermarket.json file which is used for managing conf
 
 ### Chef
 
-- Chef 12.5+
+- Chef 12.7+
 
 ### Cookbooks
 

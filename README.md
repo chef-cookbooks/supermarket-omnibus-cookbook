@@ -41,7 +41,7 @@ default['supermarket_omnibus']['package_version'] = '1.2.3'
 default['supermarket_omnibus']['package_repo'] = 'current'
 
 # OR, specify a Supermarket package explicitly from a location of your choosing
-default['supermarket_omnibus']['package_url'] = 'http://bit.ly/98K8eH'
+default['supermarket_omnibus']['package_url'] = 'http://example.com/my_repo/supermarket_package.deb'
 
 # specify a recipe to install from your own package repository
 default['supermarket_omnibus']['custom_repo_recipe'] = 'my_cookbook::my_repo'

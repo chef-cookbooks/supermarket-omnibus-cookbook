@@ -10,7 +10,7 @@ require 'mixlib/install'
 describe 'supermarket-omnibus-cookbook::default' do
   context 'When all attributes are default, it should fail because of nil checks' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8', step_into: 'supermarket_server')
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9', step_into: 'supermarket_server')
       runner.converge(described_recipe)
     end
 
@@ -25,7 +25,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
   context 'When chef_server (oc-id) attributes are correctly specified' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8', step_into: 'supermarket_server') do |node|
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9', step_into: 'supermarket_server') do |node|
         node.normal['supermarket_omnibus']['chef_server_url'] = 'https://chefserver.mycorp.com'
         node.normal['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
         node.normal['supermarket_omnibus']['chef_oauth2_secret'] = 'bob_lawblaw'
@@ -56,7 +56,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
   context 'When additional config is provided' do
     let(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8', step_into: %w(chef_ingredient supermarket_server)) do |node|
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9', step_into: %w(chef_ingredient supermarket_server)) do |node|
         node.normal['supermarket_omnibus']['package_repo'] = 'current'
         node.normal['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.normal['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
@@ -91,7 +91,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
   context 'When a repository current is specified' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8', step_into: %w(chef_ingredient supermarket_server)) do |node|
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9', step_into: %w(chef_ingredient supermarket_server)) do |node|
         node.normal['supermarket_omnibus']['package_repo'] = 'current'
         node.normal['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.normal['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
@@ -121,7 +121,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
   context 'When a package_url is specified, packages.chef.io should not be used' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8', step_into: 'supermarket_server') do |node|
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9', step_into: 'supermarket_server') do |node|
         node.normal['supermarket_omnibus']['package_url'] = 'https://somethingelse.chef.io/stable/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.normal['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.normal['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'
@@ -150,7 +150,7 @@ describe 'supermarket-omnibus-cookbook::default' do
 
   context 'When a package_url is specified, the Rpm provider should be used on RHEL systems' do
     cached(:chef_run) do
-      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.8', step_into: %w(chef_ingredient supermarket_server)) do |node|
+      runner = ChefSpec::SoloRunner.new(platform: 'centos', version: '6.9', step_into: %w(chef_ingredient supermarket_server)) do |node|
         node.normal['supermarket_omnibus']['package_url'] = 'https://somethingelse.chef.io/chef/stable/packages/el/6/supermarket-1.10.1~alpha.0-1.el5.x86_64.rpm'
         node.normal['supermarket_omnibus']['chef_server_url']    = 'https://chefserver.mycorp.com'
         node.normal['supermarket_omnibus']['chef_oauth2_app_id'] = 'blahblah'

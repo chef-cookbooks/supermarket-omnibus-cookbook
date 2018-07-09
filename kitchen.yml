@@ -15,11 +15,11 @@ platforms:
     driver:
       network:
       - ["private_network", {ip: "33.33.33.22"}]
-  - name: centos-6.8
+  - name: centos-6
     driver:
       network:
       - ["private_network", {ip: "33.33.33.25"}]
-  - name: centos-7.3
+  - name: centos-7
     driver:
       network:
       - ["private_network", {ip: "33.33.33.28"}]

@@ -5,11 +5,17 @@
 This cookbook installs the [Chef Supermarket](https://github.com/opscode/supermarket) server using the [omnibus-supermarket](https://github.com/opscode/omnibus-supermarket) packages from package.chef.io.<br>
 This cookbook also renders supermarket.json file which is used for managing configuration of Supermarket.
 
+**Umbrella Project**: [Supermarket](https://github.com/chef/chef-oss-practices/blob/master/projects/supermarket.md)
+
+* **[Project State](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md):** Maintained
+* **Issues [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md):** 14 days
+* **Pull Request [Response Time Maximum](https://github.com/chef/chef-oss-practices/blob/master/repo-management/repo-states.md):** 14 days
+
 ## Requirements
 
 ### Platforms
 
-- Ubuntu 12.04+
+- Ubuntu 14.04+
 - RHEL 6+
 
 ### Chef

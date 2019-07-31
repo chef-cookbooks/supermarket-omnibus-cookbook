@@ -72,7 +72,7 @@ The [Collaborator Groups](https://www.chef.io/blog/2015/12/18/collaborator-group
 
 :warning: It's super important to be aware that **supermarket.json always wins**. Best practice is to modify your supermarket configuration via `['config']` setting in a wrapper cookbook.
 
-To find out all supermarket `config` attributes you can override, see [omnibus-supermarket](https://github.com/chef/omnibus-supermarket/blob/master/cookbooks/omnibus-supermarket/attributes/default.rb). Translation of attributes from `supermarket-omnibus-cookbook` to attributes in `omnibus-supermarket` occurs in the `supermarket_server` resource provided by this cookbook which produces a JSON(`/etc/supermarket/supermarket.json`) that `omnibus-supermarket` reads. For example:
+To find out all supermarket `config` attributes you can override, see [supermarket](https://github.com/chef/supermarket/blob/master/omnibus/cookbooks/omnibus-supermarket/attributes/default.rb). Translation of attributes from `supermarket-omnibus-cookbook` to attributes in `supermarket` occurs in the `supermarket_server` resource provided by this cookbook which produces a JSON(`/etc/supermarket/supermarket.json`) that `omnibus-supermarket` reads. For example:
 
 ```ruby
 # an attribute you define via this supermarket-omnibus-cookbook

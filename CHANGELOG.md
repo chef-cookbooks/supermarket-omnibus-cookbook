@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the supermarket-omnibus-cookbook cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: metadata.rb:8:1 refactor: `ChefModernize/RespondToInMetadata`
+
 ## 3.0.0 (2017-04-11)
 
 - Require Chef 12.5+ (for custom resources) and remove compat_resource &

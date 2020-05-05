@@ -1,7 +1,7 @@
 addons:
   apt:
     sources:
-      - chef-stable-trusty
+      - chef-current-xenial
     packages:
       - chef-workstation
 

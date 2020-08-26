@@ -2,6 +2,17 @@
 
 This file is used to list changes made in each version of the supermarket-omnibus-cookbook cookbook.
 
+## Unreleased
+
+- resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:13:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:28:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:59:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:94:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:124:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:153:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: spec/unit/test_custom_repo_setup_spec.rb:10:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
+- resolved cookstyle error: metadata.rb:8:1 refactor: `ChefModernize/RespondToInMetadata`
+
 ## 3.0.0 (2017-04-11)
 
 - Require Chef 12.5+ (for custom resources) and remove compat_resource &

@@ -4,6 +4,7 @@ This file is used to list changes made in each version of the supermarket-omnibu
 
 ## Unreleased
 
+- resolved cookstyle error: resources/supermarket_server.rb:1:1 refactor: `Chef/Deprecations/ResourceWithoutUnifiedTrue`
 - resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:13:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 - resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:28:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`
 - resolved cookstyle error: spec/unit/libraries/supermarket_server_spec.rb:59:16 warning: `ChefDeprecations/DeprecatedChefSpecPlatform`

@@ -15,6 +15,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 provides :supermarket_server
+unified_mode true
 
 property :instance_name, String, name_property: true
 property :chef_server_url, String, required: true

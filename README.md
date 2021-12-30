@@ -87,7 +87,7 @@ default['supermarket']['nginx']['log_rotation']['num_to_keep'] = 10
 - Author: Irving Popovetsky ([irving@chef.io](mailto:irving@chef.io))
 
 ```text
-Copyright:: 2015-2016, Chef Software, Inc
+Copyright:: 2015-2022, Chef Software, Inc
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
